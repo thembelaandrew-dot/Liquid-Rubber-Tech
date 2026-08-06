@@ -1,0 +1,6 @@
+{
+  "name": "Liquid Rubber Tech",
+  "description": "High-end website for Liquid Rubber Tech Investments, a construction and waterproofing company.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
