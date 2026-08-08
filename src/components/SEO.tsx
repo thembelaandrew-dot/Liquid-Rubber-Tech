@@ -14,7 +14,7 @@ export default function SEO({
   description, 
   type = 'website', 
   url = 'https://liquidrubbertech.com', 
-  image = 'https://i.imgur.com/feZnmkl.jpeg',
+  image = 'https://i.imgur.com/96Q9RnA.jpeg',
   schema 
 }: SEOProps) {
   const siteTitle = `${title} | Liquid Rubber Tech Investments`;

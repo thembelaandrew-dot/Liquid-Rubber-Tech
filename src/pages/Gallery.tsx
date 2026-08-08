@@ -15,8 +15,11 @@ export default function Gallery() {
         title="Project Gallery" 
         description="View our portfolio of successful construction and waterproofing projects across Eswatini by Liquid Rubber Tech Investments."
       />
-      <section className="py-24 relative flex-grow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-24 relative flex-grow overflow-hidden">
+        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-brand-green/5 rounded-full blur-[120px] pointer-events-none"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-brand-blue/5 rounded-full blur-[120px] pointer-events-none"></div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <motion.h1 
               initial={{ opacity: 0, y: 20 }}

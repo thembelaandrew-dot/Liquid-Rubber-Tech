@@ -9,7 +9,7 @@ export default function Footer() {
           
           <div className="col-span-1 md:col-span-1">
             <Link to="/" className="flex items-center gap-2 mb-6">
-              <img src="https://i.imgur.com/feZnmkl.jpeg" alt="Liquid Rubber Tech" className="h-10 w-auto object-contain rounded-full" />
+              <img src="https://i.imgur.com/96Q9RnA.jpeg" alt="Liquid Rubber Tech" className="h-10 w-auto object-contain rounded-full" />
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed mb-6">
               Premium construction, waterproofing, and property improvement services in Eswatini. Built to last.
@@ -52,7 +52,7 @@ export default function Footer() {
               </li>
               <li className="flex items-start gap-3">
                 <Mail className="w-5 h-5 text-brand-green shrink-0" />
-                <a href="mailto:info@liquidrubbertech.com" className="text-gray-400 hover:text-white text-sm">info@liquidrubbertech.com</a>
+                <a href="mailto:lrteswatini@gmail.com" className="text-gray-400 hover:text-white text-sm">lrteswatini@gmail.com</a>
               </li>
             </ul>
           </div>

@@ -14,7 +14,7 @@ export default function Home() {
           "@context": "https://schema.org",
           "@type": "LocalBusiness",
           "name": "Liquid Rubber Tech Investments",
-          "image": "https://i.imgur.com/feZnmkl.jpeg",
+          "image": "https://i.imgur.com/96Q9RnA.jpeg",
           "description": "High-end construction and waterproofing solutions in Eswatini.",
           "address": {
             "@type": "PostalAddress",
@@ -82,7 +82,7 @@ export default function Home() {
               <Link to="/quote" className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-brand-green to-brand-blue text-black font-bold text-lg hover:scale-105 transition-all duration-300 shadow-[0_0_20px_rgba(57,255,20,0.3)] hover:shadow-[0_0_30px_rgba(57,255,20,0.5)]">
                 Get a Quote <ArrowRight className="w-5 h-5" />
               </Link>
-              <a href="https://wa.me/26876610372" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl glass-panel glass-panel-hover text-white font-bold text-lg hover:scale-105 transition-all duration-300">
+              <a href="https://wa.me/26876610372?text=Hello%20Liquid%20Rubber%20Tech%20Investments%2C%20I%20found%20your%20website%20and%20would%20like%20to%20enquire%20about%20your%20services." target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl glass-panel glass-panel-hover text-white font-bold text-lg hover:scale-105 transition-all duration-300">
                 WhatsApp Us
               </a>
             </motion.div>
@@ -102,23 +102,23 @@ export default function Home() {
             {servicesData.slice(0, 4).map((service, index) => (
               <motion.div
                 key={service.id}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="glass-panel p-8 glass-panel-hover group relative overflow-hidden"
+                className="group relative glass-panel p-8 hover:-translate-y-2 transition-all duration-300 flex flex-col h-full border border-white/5 hover:border-brand-green/30"
               >
-                <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                  <service.icon className="w-24 h-24 text-brand-blue" />
+                <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                  <service.icon className="w-32 h-32 text-brand-blue" />
                 </div>
-                <div className="relative z-10">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-brand-green/20 to-brand-blue/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                    <service.icon className="w-7 h-7 text-brand-green" />
+                <div className="relative z-10 flex flex-col h-full">
+                  <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-brand-green/10 to-brand-blue/10 border border-white/5 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:border-brand-green/30 transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.5)]">
+                    <service.icon className="w-8 h-8 text-brand-green group-hover:text-white transition-colors" />
                   </div>
-                  <h3 className="text-xl font-bold mb-3">{service.title}</h3>
-                  <p className="text-gray-400 text-sm leading-relaxed mb-6 line-clamp-3">{service.description}</p>
-                  <Link to={`/services/${service.id}`} className="inline-flex items-center text-sm font-bold text-brand-blue group-hover:text-brand-green transition-colors">
-                    Learn More <ArrowRight className="w-4 h-4 ml-2" />
+                  <h3 className="text-xl font-bold mb-4 tracking-wide">{service.title}</h3>
+                  <p className="text-gray-400 text-sm leading-relaxed mb-8 flex-grow">{service.description}</p>
+                  <Link to={`/services/${service.id}`} className="inline-flex items-center text-sm font-bold text-brand-blue group-hover:text-brand-green transition-colors mt-auto uppercase tracking-wider">
+                    Learn More <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </div>
               </motion.div>

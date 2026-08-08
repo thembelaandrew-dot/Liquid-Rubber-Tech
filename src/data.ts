@@ -82,6 +82,8 @@ export const galleryData = [
   { id: 4, category: 'Flooring', url: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=800&q=80' },
   { id: 5, category: 'Waterproofing', url: 'https://images.unsplash.com/photo-1518799175676-a0de7d853472?auto=format&fit=crop&w=800&q=80' },
   { id: 6, category: 'Roofing', url: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80' },
+  { id: 7, category: 'Restoration', url: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80' },
+  { id: 8, category: 'Painting', url: 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=800&q=80' },
 ];
 
 export const testimonials = [
