@@ -24,7 +24,7 @@ export default function Navbar() {
     { name: 'Home', path: '/' },
     { name: 'About', path: '/about' },
     { name: 'Services', path: '/services' },
-    { name: 'Gallery', path: '/gallery' },
+    { name: 'Featured Work', path: '/gallery' },
     { name: 'Contact', path: '/contact' },
   ];
 
@@ -48,12 +48,14 @@ export default function Navbar() {
                 <span className={`absolute -bottom-1 left-0 w-full h-[2px] bg-brand-green rounded-full transition-transform duration-300 ${location.pathname === link.path ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
               </Link>
             ))}
-            <Link 
-              to="/quote"
+            <a 
+              href="https://wa.me/26876610372?text=Hello%20Liquid%20Rubber%20Tech%20Investments%2C%20I%20would%20like%20to%20request%20a%20quote."
+              target="_blank"
+              rel="noopener noreferrer"
               className="ml-4 px-8 py-3 rounded-full bg-brand-green text-black font-bold text-sm hover:bg-brand-blue transition-colors duration-300 glow-green hover:glow-blue"
             >
-              GET A QUOTE
-            </Link>
+              GET QUOTE
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -97,12 +99,14 @@ export default function Navbar() {
                 transition={{ delay: navLinks.length * 0.1 }}
                 className="pt-8 mt-auto mb-8 border-t border-white/10"
               >
-                <Link 
-                  to="/quote"
+                <a 
+                  href="https://wa.me/26876610372?text=Hello%20Liquid%20Rubber%20Tech%20Investments%2C%20I%20would%20like%20to%20request%20a%20quote."
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center justify-center w-full py-5 rounded-xl bg-gradient-to-r from-brand-green to-brand-blue text-black font-bold tracking-wider uppercase shadow-[0_0_20px_rgba(57,255,20,0.4)] text-lg"
                 >
-                  Get a Free Quote
-                </Link>
+                  Get Quote
+                </a>
               </motion.div>
             </div>
           </motion.div>

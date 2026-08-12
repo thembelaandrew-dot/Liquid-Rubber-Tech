@@ -60,8 +60,8 @@ export default function Home() {
               className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-bold text-white leading-[1.05] mb-6 tracking-tight"
             >
               We Protect, <br />
-              <span className="text-gradient">Restore &amp; Transform</span><br />
-              Your Property
+              Sealing Strength.<br />
+              <span className="text-gradient">Lasting Protection.</span>
             </motion.h1>
 
             <motion.p 
@@ -70,7 +70,7 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-lg sm:text-xl text-gray-300 mb-10 max-w-2xl leading-relaxed font-light"
             >
-              Sealing Strength. Lasting Protection. From leaks to complete restorations, we deliver high-end construction and waterproofing solutions built to last.
+              Professional property restoration, roofing, waterproofing, construction finishing, and maintenance company in Eswatini.
             </motion.p>
 
             <motion.div 
@@ -79,9 +79,9 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.3 }}
               className="flex flex-col sm:flex-row gap-4"
             >
-              <Link to="/quote" className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-brand-green to-brand-blue text-black font-bold text-lg hover:scale-105 transition-all duration-300 shadow-[0_0_20px_rgba(57,255,20,0.3)] hover:shadow-[0_0_30px_rgba(57,255,20,0.5)]">
-                Get a Quote <ArrowRight className="w-5 h-5" />
-              </Link>
+              <a href="https://wa.me/26876610372?text=Hello%20Liquid%20Rubber%20Tech%20Investments%2C%20I%20would%20like%20to%20request%20a%20quote." target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-brand-green to-brand-blue text-black font-bold text-lg hover:scale-105 transition-all duration-300 shadow-[0_0_20px_rgba(57,255,20,0.3)] hover:shadow-[0_0_30px_rgba(57,255,20,0.5)]">
+                Get Quote <ArrowRight className="w-5 h-5" />
+              </a>
               <a href="https://wa.me/26876610372?text=Hello%20Liquid%20Rubber%20Tech%20Investments%2C%20I%20found%20your%20website%20and%20would%20like%20to%20enquire%20about%20your%20services." target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl glass-panel glass-panel-hover text-white font-bold text-lg hover:scale-105 transition-all duration-300">
                 WhatsApp Us
               </a>
@@ -95,11 +95,11 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-display font-bold mb-4">Our Core Services</h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">Comprehensive solutions for structural integrity and aesthetic perfection.</p>
+            <p className="text-gray-400 max-w-2xl mx-auto">From roofing and waterproofing to property finishing and maintenance.</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {servicesData.slice(0, 4).map((service, index) => (
+            {servicesData.filter(s => ['roof-restoration', 'waterproofing', 'painting', 'epoxy']).map((service, index) => (
               <motion.div
                 key={service.id}
                 initial={{ opacity: 0, y: 30 }}
@@ -142,15 +142,15 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <h2 className="text-3xl md:text-5xl font-display font-bold mb-6">Strong. Professional.<br/><span className="text-brand-green">Built to Last.</span></h2>
+              <h2 className="text-3xl md:text-5xl font-display font-bold mb-6">SEAL. PROTECT.<br/><span className="text-brand-green">RESTORE.</span></h2>
               <p className="text-gray-400 text-lg mb-8 leading-relaxed">
-                We don't just fix problems; we engineer lasting solutions. Our advanced materials and expert application ensure your property stands strong against the elements.
+                We engineer lasting solutions to prevent leaks, protect surfaces, and restore deteriorated properties. Our premium products and experienced team ensure your investment stands strong.
               </p>
               <ul className="space-y-6">
                 {[
-                  { icon: ShieldCheck, title: 'Premium Materials', desc: 'We use industry-leading liquid rubber and epoxy compounds.' },
-                  { icon: Zap, title: 'Rapid Execution', desc: 'Efficient project management without compromising quality.' },
-                  { icon: Droplet, title: 'Waterproof Guarantee', desc: '100% sealed, seamless finishes that completely repel water.' }
+                  { icon: ShieldCheck, title: 'SEAL', desc: 'Prevent leaks and water penetration with premium liquid-rubber technology.' },
+                  { icon: Zap, title: 'PROTECT', desc: 'Protect roofs, walls, floors, and other property surfaces from damage.' },
+                  { icon: Droplet, title: 'RESTORE', desc: 'Restore damaged, aged, dirty, or deteriorated property surfaces to their prime.' }
                 ].map((item, i) => (
                   <li key={i} className="flex gap-4">
                     <div className="shrink-0 w-12 h-12 rounded-full glass-panel flex items-center justify-center">
@@ -182,8 +182,8 @@ export default function Home() {
               <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-transparent to-transparent pointer-events-none rounded-xl"></div>
               <div className="absolute bottom-8 left-8 right-8 glass-panel p-6 flex items-center justify-between">
                 <div>
-                  <p className="text-3xl font-display font-bold text-brand-green">15+</p>
-                  <p className="text-sm text-gray-300 font-bold tracking-wider uppercase">Years Added Lifespan</p>
+                  <p className="text-3xl font-display font-bold text-brand-green">15 Yrs</p>
+                  <p className="text-sm text-gray-300 font-bold tracking-wider uppercase">Warranty on selected systems</p>
                 </div>
                 <div className="w-px h-12 bg-white/20"></div>
                 <div>
@@ -198,13 +198,13 @@ export default function Home() {
 
       {/* CTA Strip */}
       <section className="py-16 bg-gradient-to-r from-brand-green/10 to-brand-blue/10 border-y border-white/5 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1621252179027-94459d278660?auto=format&fit=crop&w=2000&q=80')] opacity-5 mix-blend-overlay"></div>
+        <div className="absolute inset-0 bg-[url('https://i.imgur.com/7ArB8E7.jpeg')] opacity-5 mix-blend-overlay"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
           <h2 className="text-2xl md:text-4xl font-display font-bold mb-6">Ready to secure your investment?</h2>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link to="/quote" className="inline-flex items-center justify-center gap-2 px-10 py-4 rounded-xl bg-white text-black font-bold text-lg hover:bg-brand-green transition-all duration-300 shadow-[0_0_30px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(57,255,20,0.5)]">
-              Schedule a Free Inspection <ArrowRight className="w-5 h-5" />
-            </Link>
+            <a href="https://wa.me/26876610372?text=Hello%20Liquid%20Rubber%20Tech%20Investments%2C%20I%20would%20like%20to%20request%20a%20quote." target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-10 py-4 rounded-xl bg-white text-black font-bold text-lg hover:bg-brand-green transition-all duration-300 shadow-[0_0_30px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(57,255,20,0.5)]">
+              Request a Quote <ArrowRight className="w-5 h-5" />
+            </a>
             <Link to="/gallery" className="inline-flex items-center justify-center gap-2 px-10 py-4 rounded-xl glass-panel glass-panel-hover text-white font-bold text-lg transition-all duration-300">
               View Our Work
             </Link>

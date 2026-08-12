@@ -93,9 +93,9 @@ export default function ServiceDetail() {
               
               <div className="mt-12 p-8 rounded-2xl bg-gradient-to-br from-brand-blue/10 to-transparent border border-brand-blue/20">
                 <h3 className="font-bold text-xl mb-4">Ready to start?</h3>
-                <Link to="/quote" className="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-xl bg-brand-blue text-black font-bold hover:bg-white transition-colors duration-300 w-full sm:w-auto text-center">
+                <a href="https://wa.me/26876610372?text=Hello%20Liquid%20Rubber%20Tech%20Investments%2C%20I%20would%20like%20to%20request%20a%20quote." target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-xl bg-brand-blue text-black font-bold hover:bg-white transition-colors duration-300 w-full sm:w-auto text-center">
                   Book This Service <ArrowRight className="w-5 h-5" />
-                </Link>
+                </a>
               </div>
             </motion.div>
           </div>

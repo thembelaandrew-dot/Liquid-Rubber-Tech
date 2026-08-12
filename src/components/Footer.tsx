@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Phone, MapPin, Mail, Droplet } from 'lucide-react';
+import { Phone, MapPin, Mail, Facebook, Instagram } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -14,6 +14,14 @@ export default function Footer() {
             <p className="text-gray-400 text-sm leading-relaxed mb-6">
               Premium construction, waterproofing, and property improvement services in Eswatini. Built to last.
             </p>
+            <div className="flex gap-4">
+              <a href="https://www.facebook.com/profile.php?id=61588501700280" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-brand-green hover:bg-white/10 transition-all">
+                <Facebook className="w-5 h-5" />
+              </a>
+              <a href="https://www.instagram.com/liquid_rubber_tech_sz?igsh=cXFuaGJtazA3NDh1" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-brand-green hover:bg-white/10 transition-all">
+                <Instagram className="w-5 h-5" />
+              </a>
+            </div>
           </div>
 
           <div>
@@ -30,9 +38,9 @@ export default function Footer() {
             <h4 className="font-display font-bold text-white mb-6 tracking-wider text-sm">COMPANY</h4>
             <ul className="space-y-3">
               <li><Link to="/about" className="text-gray-400 hover:text-brand-green text-sm transition-colors">About Us</Link></li>
-              <li><Link to="/gallery" className="text-gray-400 hover:text-brand-green text-sm transition-colors">Projects Gallery</Link></li>
+              <li><Link to="/gallery" className="text-gray-400 hover:text-brand-green text-sm transition-colors">Featured Work</Link></li>
               <li><Link to="/contact" className="text-gray-400 hover:text-brand-green text-sm transition-colors">Contact</Link></li>
-              <li><Link to="/quote" className="text-gray-400 hover:text-brand-green text-sm transition-colors">Get a Quote</Link></li>
+              <li><a href="https://wa.me/26876610372?text=Hello%20Liquid%20Rubber%20Tech%20Investments%2C%20I%20would%20like%20to%20request%20a%20quote." target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-brand-green text-sm transition-colors">Get Quote</a></li>
             </ul>
           </div>
 

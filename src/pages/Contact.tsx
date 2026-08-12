@@ -1,39 +1,8 @@
 import { motion } from 'motion/react';
 import { Phone, Mail, MapPin, Clock } from 'lucide-react';
 import SEO from '../components/SEO';
-import { useState, useRef } from 'react';
-import emailjs from '@emailjs/browser';
 
 export default function Contact() {
-  const formRef = useRef<HTMLFormElement>(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formRef.current) return;
-
-    setIsSubmitting(true);
-    setSubmitStatus('idle');
-
-    try {
-      // Replace these with actual EmailJS credentials
-      await emailjs.sendForm(
-        'YOUR_SERVICE_ID',
-        'YOUR_TEMPLATE_ID',
-        formRef.current,
-        'YOUR_PUBLIC_KEY'
-      );
-      setSubmitStatus('success');
-      formRef.current.reset();
-    } catch (error) {
-      console.error('EmailJS Error:', error);
-      setSubmitStatus('error');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   return (
     <div className="pt-20">
       <SEO 
@@ -78,57 +47,36 @@ export default function Contact() {
               </div>
             </motion.div>
 
-            {/* Form */}
+            {/* Form Replacement - CTA */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.1 }}
-              className="glass-panel p-8 md:p-12 relative overflow-hidden"
+              className="glass-panel p-8 md:p-12 relative overflow-hidden flex flex-col justify-center text-center"
             >
               <div className="absolute top-0 right-0 w-64 h-64 bg-brand-green/5 rounded-full blur-[80px]"></div>
+              <div className="absolute bottom-0 left-0 w-64 h-64 bg-brand-blue/5 rounded-full blur-[80px]"></div>
               
-              <h3 className="text-2xl font-bold mb-8 relative z-10">Send a Message</h3>
-              
-              {submitStatus === 'success' ? (
-                <div className="relative z-10 p-6 rounded-xl bg-brand-green/10 border border-brand-green/30 text-center">
-                  <h4 className="text-brand-green font-bold text-xl mb-2">Message Sent!</h4>
-                  <p className="text-gray-300">Thank you. Your request has been received. Our team will contact you shortly.</p>
-                  <button onClick={() => setSubmitStatus('idle')} className="mt-4 text-sm text-gray-400 hover:text-white transition-colors">Send another message</button>
+              <div className="relative z-10">
+                <div className="w-20 h-20 mx-auto bg-brand-green/10 rounded-full flex items-center justify-center mb-6 border border-brand-green/20">
+                  <Phone className="w-10 h-10 text-brand-green" />
                 </div>
-              ) : (
-                <form ref={formRef} onSubmit={handleSubmit} className="relative z-10 space-y-6">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-400 mb-2">Full Name</label>
-                      <input name="customer_name" required type="text" className="w-full bg-black/30 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-green transition-colors" placeholder="John Doe" />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-400 mb-2">Phone Number</label>
-                      <input name="customer_phone" required type="tel" className="w-full bg-black/30 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-green transition-colors" placeholder="7661 0372" />
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-2">Email Address</label>
-                    <input name="customer_email" required type="email" className="w-full bg-black/30 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-green transition-colors" placeholder="john@example.com" />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-2">Message</label>
-                    <textarea name="message" required rows={4} className="w-full bg-black/30 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-green transition-colors resize-none" placeholder="Tell us about your project..."></textarea>
-                  </div>
+                
+                <h3 className="text-3xl font-display font-bold mb-4">Ready to start?</h3>
+                <p className="text-gray-400 mb-8 max-w-md mx-auto leading-relaxed">
+                  Get in touch with us directly via WhatsApp or phone. We're ready to answer your questions and provide a quote for your project.
+                </p>
+                
+                <div className="flex flex-col gap-4 max-w-sm mx-auto">
+                  <a href="https://wa.me/26876610372?text=Hello%20Liquid%20Rubber%20Tech%20Investments%2C%20I%20would%20like%20to%20enquire%20about%20your%20services." target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-3 w-full py-4 rounded-xl bg-[#25D366] text-white font-bold text-lg hover:scale-105 transition-all duration-300 shadow-[0_0_15px_rgba(37,211,102,0.4)]">
+                    Chat on WhatsApp
+                  </a>
                   
-                  {submitStatus === 'error' && (
-                    <p className="text-red-400 text-sm">Failed to send message. Please try again or contact us via WhatsApp.</p>
-                  )}
-
-                  <button disabled={isSubmitting} type="submit" className="w-full py-4 rounded-xl bg-gradient-to-r from-brand-green to-brand-blue text-black font-bold text-lg hover:scale-105 transition-all duration-300 shadow-[0_0_15px_rgba(57,255,20,0.3)] disabled:opacity-70 disabled:hover:scale-100">
-                    {isSubmitting ? 'Sending...' : 'Send Message'}
-                  </button>
-                  
-                  <div className="text-center mt-4">
-                    <p className="text-sm text-gray-500">Prefer WhatsApp? <a href="https://wa.me/26876610372?text=Hello%20Liquid%20Rubber%20Tech%20Investments%2C%20I%20found%20your%20website%20and%20would%20like%20to%20enquire%20about%20your%20services." className="text-brand-green hover:underline font-bold" target="_blank" rel="noreferrer">Chat with us directly.</a></p>
-                  </div>
-                </form>
-              )}
+                  <a href="tel:+26876610372" className="flex items-center justify-center gap-3 w-full py-4 rounded-xl bg-white/5 border border-white/10 text-white font-bold text-lg hover:bg-white/10 transition-all duration-300">
+                    Call 7661 0372
+                  </a>
+                </div>
+              </div>
             </motion.div>
 
           </div>

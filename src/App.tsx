@@ -8,7 +8,6 @@ import Services from './pages/Services';
 import ServiceDetail from './pages/ServiceDetail';
 import Gallery from './pages/Gallery';
 import Contact from './pages/Contact';
-import Quote from './pages/Quote';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -31,7 +30,6 @@ export default function App() {
             <Route path="services/:id" element={<ServiceDetail />} />
             <Route path="gallery" element={<Gallery />} />
             <Route path="contact" element={<Contact />} />
-            <Route path="quote" element={<Quote />} />
           </Route>
         </Routes>
       </Router>
