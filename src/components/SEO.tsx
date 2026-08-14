@@ -13,17 +13,18 @@ export default function SEO({
   title, 
   description, 
   type = 'website', 
-  url = 'https://liquidrubbertech.com', 
+  url = 'https://liquidrubbertech.netlify.app', 
   image = 'https://i.imgur.com/96Q9RnA.jpeg',
   schema 
 }: SEOProps) {
-  const siteTitle = `${title} | Liquid Rubber Tech Investments`;
+  const siteTitle = title.includes('Liquid Rubber') ? title : `${title} | Liquid Rubber Tech Investments`;
 
   return (
     <Helmet>
       {/* Standard Metadata */}
       <title>{siteTitle}</title>
       <meta name="description" content={description} />
+      <link rel="canonical" href={url} />
 
       {/* Open Graph / Facebook */}
       <meta property="og:type" content={type} />

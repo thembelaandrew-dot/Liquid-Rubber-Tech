@@ -8,8 +8,9 @@ export default function Services() {
   return (
     <div className="pt-20">
       <SEO 
-        title="Our Services" 
-        description="Explore our comprehensive construction, restoration, and waterproofing solutions in Eswatini. Liquid Rubber Tech Investments delivers quality that lasts."
+        title="Our Services | Waterproofing, Roofing & Construction | Eswatini" 
+        description="Explore our comprehensive property services in Eswatini, including premium waterproofing, roof restorations, epoxy flooring, and full property renovations."
+        url="https://liquidrubbertech.netlify.app/services"
       />
       <section className="py-24 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
@@ -52,7 +53,7 @@ export default function Services() {
                     >
                       <div className="h-[400px] overflow-hidden relative">
                         <div className="absolute inset-0 bg-brand-dark/40 z-10 group-hover:bg-brand-dark/10 transition-colors duration-500"></div>
-                        <img src={service.image} alt={service.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                        <img src={service.image} alt={`${service.title} services in Eswatini`} loading="lazy" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                       </div>
                       <div className="p-6 flex-grow flex flex-col">
                         <div className="flex items-center gap-4 mb-4">
@@ -62,8 +63,7 @@ export default function Services() {
                           <h3 className="text-xl font-bold">{service.title}</h3>
                         </div>
                         <p className="text-gray-400 text-sm leading-relaxed mb-6 flex-grow">{service.description}</p>
-                        <Link to={`/services/${service.id}`} className="inline-flex items-center text-sm font-bold text-white group-hover:text-brand-green transition-colors w-max">
-                          View Details <ArrowRight className="w-4 h-4 ml-2" />
+                        <Link to={`/services/${service.id}`} className="inline-flex items-center text-sm font-bold text-white group-hover:text-brand-green transition-colors w-max">View Details <span className="sr-only">about {service.title}</span> <ArrowRight className="w-4 h-4 ml-2" />
                         </Link>
                       </div>
                     </motion.div>

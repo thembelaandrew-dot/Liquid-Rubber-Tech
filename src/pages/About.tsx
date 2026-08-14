@@ -6,8 +6,9 @@ export default function About() {
   return (
     <div className="pt-20">
       <SEO 
-        title="About Us" 
-        description="Learn about Liquid Rubber Tech Investments, Eswatini's premier construction and waterproofing firm dedicated to extending the life of your most valuable assets."
+        title="About Liquid Rubber Tech | Eswatini Construction Experts" 
+        description="Learn about Liquid Rubber Tech Investments, Eswatini’s trusted experts in waterproofing, property restoration, and durable construction solutions."
+        url="https://liquidrubbertech.netlify.app/about"
       />
       {/* Header */}
       <section className="relative py-24 overflow-hidden">
@@ -71,7 +72,7 @@ export default function About() {
               viewport={{ once: true }}
               className="relative h-[500px] rounded-2xl overflow-hidden"
             >
-              <img src="https://i.imgur.com/qewAt3S.jpeg" alt="Team at work" className="w-full h-full object-cover" />
+              <img src="https://i.imgur.com/qewAt3S.jpeg" alt="Liquid Rubber Tech professionals at work in Eswatini" loading="lazy" className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-brand-dark/40 mix-blend-multiply"></div>
             </motion.div>
             

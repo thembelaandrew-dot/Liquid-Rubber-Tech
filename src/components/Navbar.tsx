@@ -33,7 +33,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="flex items-center gap-2 relative z-50">
-            <img src="https://i.imgur.com/96Q9RnA.jpeg" alt="Liquid Rubber Tech" className="h-12 w-auto object-contain rounded-full shadow-[0_0_15px_rgba(57,255,20,0.3)]" />
+            <img src="https://i.imgur.com/96Q9RnA.jpeg" alt="Liquid Rubber Tech Logo" className="h-12 w-auto object-contain rounded-full shadow-[0_0_15px_rgba(57,255,20,0.3)]" />
           </Link>
 
           {/* Desktop Nav */}

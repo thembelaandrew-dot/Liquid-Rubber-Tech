@@ -15,9 +15,10 @@ export default function ServiceDetail() {
   return (
     <div className="pt-20">
       <SEO 
-        title={service.title} 
+        title={`${service.title} | Eswatini`}
         description={service.description}
         image={service.image}
+        url={`https://liquidrubbertech.netlify.app/services/${service.id}`}
       />
       {/* Hero */}
       <section className="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">

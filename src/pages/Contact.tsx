@@ -6,8 +6,9 @@ export default function Contact() {
   return (
     <div className="pt-20">
       <SEO 
-        title="Contact Us" 
-        description="Get in touch with Liquid Rubber Tech Investments for professional consultation and high-end construction execution in Eswatini."
+        title="Contact Liquid Rubber Tech | Get a Quote in Eswatini" 
+        description="Contact our team for a free consultation or project quote. Nationwide service in Eswatini for residential and commercial property protection."
+        url="https://liquidrubbertech.netlify.app/contact"
       />
       <section className="py-24 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -27,7 +28,7 @@ export default function Contact() {
                 {[
                   { icon: Phone, title: 'Call Us', lines: ['7661 0372', '7836 3059'], hrefPrefix: 'tel:+268' },
                   { icon: Mail, title: 'Email', lines: ['lrteswatini@gmail.com'], hrefPrefix: 'mailto:' },
-                  { icon: MapPin, title: 'Location', lines: ['Eswatini (Nationwide Service)'] },
+                  { icon: MapPin, title: 'Location', lines: ['Eswatini (Nationwide Service)'] }, // DEVELOPER NOTE: For optimal Local SEO, provide a full physical street address here if available.
                   { icon: Clock, title: 'Business Hours', lines: ['Mon - Fri: 8:00 AM - 5:00 PM', 'Sat: 9:00 AM - 1:00 PM'] },
                 ].map((item, i) => (
                   <div key={i} className="flex items-start gap-6">

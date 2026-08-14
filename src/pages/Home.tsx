@@ -8,21 +8,24 @@ export default function Home() {
   return (
     <div className="flex flex-col w-full">
       <SEO 
-        title="Home" 
-        description="Liquid Rubber Tech Investments provides high-end construction and waterproofing solutions in Eswatini. We protect, restore, and transform your property."
+        title="Waterproofing & Roof Restoration | Liquid Rubber Tech | Eswatini" 
+        description="Liquid Rubber Tech Investments specializes in premium waterproofing, roof restoration, and high-end construction solutions across Eswatini. 100% leak-free guarantee."
+        url="https://liquidrubbertech.netlify.app/"
         schema={{
           "@context": "https://schema.org",
-          "@type": "LocalBusiness",
+          "@type": "RoofingContractor",
           "name": "Liquid Rubber Tech Investments",
-          "image": "https://i.imgur.com/96Q9RnA.jpeg",
-          "description": "High-end construction and waterproofing solutions in Eswatini.",
+          "image": "https://i.imgur.com/K1Pyv2G.jpeg",
+          "description": "Premium waterproofing and roof restoration services in Eswatini.",
           "address": {
             "@type": "PostalAddress",
-            "addressLocality": "Eswatini",
+            "addressLocality": "Manzini",
+            "addressRegion": "Manzini",
             "addressCountry": "SZ"
           },
+          "areaServed": "Eswatini",
           "telephone": "+268-7661-0372",
-          "url": "https://liquidrubbertech.com"
+          "url": "https://liquidrubbertech.netlify.app/"
         }}
       />
       {/* Hero Section */}
@@ -31,7 +34,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-brand-dark z-0">
           <img 
             src="https://i.imgur.com/K1Pyv2G.jpeg" 
-            alt="Modern Construction" 
+            alt="Liquid Rubber Tech team applying premium waterproofing in Eswatini" 
             className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-luminosity"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/80 to-transparent"></div>
@@ -59,9 +62,8 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-bold text-white leading-[1.05] mb-6 tracking-tight"
             >
-              We Protect, <br />
-              Sealing Strength.<br />
-              <span className="text-gradient">Lasting Protection.</span>
+              Liquid Rubber Tech<br />
+              <span className="text-gradient">Waterproofing in Eswatini.</span>
             </motion.h1>
 
             <motion.p 
@@ -118,7 +120,7 @@ export default function Home() {
                   <h3 className="text-xl font-bold mb-4 tracking-wide">{service.title}</h3>
                   <p className="text-gray-400 text-sm leading-relaxed mb-8 flex-grow">{service.description}</p>
                   <Link to={`/services/${service.id}`} className="inline-flex items-center text-sm font-bold text-brand-blue group-hover:text-brand-green transition-colors mt-auto uppercase tracking-wider">
-                    Learn More <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                    Learn More <span className="sr-only">about {service.title}</span> <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </div>
               </motion.div>
@@ -178,7 +180,7 @@ export default function Home() {
               transition={{ duration: 0.6 }}
               className="relative h-[600px] rounded-2xl overflow-hidden glass-panel p-2 shadow-[0_0_30px_rgba(0,0,0,0.5)]"
             >
-              <img src="https://i.imgur.com/K1Pyv2G.jpeg" alt="Construction Work" className="w-full h-full object-cover rounded-xl" />
+              <img src="https://i.imgur.com/K1Pyv2G.jpeg" alt="Completed waterproofing and roof restoration project in Eswatini" loading="lazy" className="w-full h-full object-cover rounded-xl" />
               <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-transparent to-transparent pointer-events-none rounded-xl"></div>
               <div className="absolute bottom-8 left-8 right-8 glass-panel p-6 flex items-center justify-between">
                 <div>

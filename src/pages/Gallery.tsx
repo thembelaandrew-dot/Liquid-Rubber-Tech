@@ -6,8 +6,9 @@ export default function Gallery() {
   return (
     <div className="pt-20 min-h-screen flex flex-col">
       <SEO 
-        title="Featured Work" 
-        description="View our portfolio of featured construction and waterproofing projects across Eswatini by Liquid Rubber Tech Investments."
+        title="Project Gallery | Liquid Rubber Tech Past Work" 
+        description="View our portfolio of completed projects in Eswatini. See the quality of our waterproofing, roofing, painting, and construction work."
+        url="https://liquidrubbertech.netlify.app/gallery"
       />
 
       <section className="py-24 relative flex-grow overflow-hidden">
@@ -46,7 +47,7 @@ export default function Gallery() {
                 key={item.id}
                 className="group relative h-80 rounded-2xl overflow-hidden glass-panel cursor-pointer"
               >
-                <img src={item.url} alt="Featured Work" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                <img src={item.url} alt={`${item.category} project by Liquid Rubber Tech in Eswatini`} loading="lazy" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity"></div>
               </motion.div>
             ))}
