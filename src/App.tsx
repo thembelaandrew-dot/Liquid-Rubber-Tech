@@ -1,13 +1,15 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import Layout from './components/Layout';
-import Home from './pages/Home';
-import About from './pages/About';
-import Services from './pages/Services';
-import ServiceDetail from './pages/ServiceDetail';
-import Gallery from './pages/Gallery';
-import Contact from './pages/Contact';
+
+// Lazy load pages for better performance
+const Home = lazy(() => import('./pages/Home'));
+const About = lazy(() => import('./pages/About'));
+const Services = lazy(() => import('./pages/Services'));
+const ServiceDetail = lazy(() => import('./pages/ServiceDetail'));
+const Gallery = lazy(() => import('./pages/Gallery'));
+const Contact = lazy(() => import('./pages/Contact'));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -17,6 +19,13 @@ function ScrollToTop() {
   return null;
 }
 
+// Loading fallback component
+const PageLoader = () => (
+  <div className="min-h-screen flex items-center justify-center pt-20">
+    <div className="w-12 h-12 border-4 border-brand-green/20 border-t-brand-green rounded-full animate-spin"></div>
+  </div>
+);
+
 export default function App() {
   return (
     <HelmetProvider>
@@ -24,12 +33,36 @@ export default function App() {
         <ScrollToTop />
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="about" element={<About />} />
-            <Route path="services" element={<Services />} />
-            <Route path="services/:id" element={<ServiceDetail />} />
-            <Route path="gallery" element={<Gallery />} />
-            <Route path="contact" element={<Contact />} />
+            <Route index element={
+              <Suspense fallback={<PageLoader />}>
+                <Home />
+              </Suspense>
+            } />
+            <Route path="about" element={
+              <Suspense fallback={<PageLoader />}>
+                <About />
+              </Suspense>
+            } />
+            <Route path="services" element={
+              <Suspense fallback={<PageLoader />}>
+                <Services />
+              </Suspense>
+            } />
+            <Route path="services/:id" element={
+              <Suspense fallback={<PageLoader />}>
+                <ServiceDetail />
+              </Suspense>
+            } />
+            <Route path="gallery" element={
+              <Suspense fallback={<PageLoader />}>
+                <Gallery />
+              </Suspense>
+            } />
+            <Route path="contact" element={
+              <Suspense fallback={<PageLoader />}>
+                <Contact />
+              </Suspense>
+            } />
           </Route>
         </Routes>
       </Router>

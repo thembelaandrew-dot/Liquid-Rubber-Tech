@@ -114,31 +114,20 @@ export const servicesData = [
 ];
 
 export const galleryData = [
-  { id: 25, category: 'Painting', url: 'https://i.imgur.com/68lruor.jpeg' },
-  { id: 1, category: 'Waterproofing', url: 'https://i.imgur.com/QlvY66l.jpeg' },
+  { id: 1, category: 'Waterproofing & Restoration', url: 'https://i.imgur.com/QlvY66l.jpeg' },
   { id: 2, category: 'Roofing', url: 'https://i.imgur.com/A0mmQOK.jpeg' },
-  { id: 3, category: 'Painting', url: 'https://i.imgur.com/acc0hyu.jpeg' },
-  { id: 4, category: 'Restoration', url: 'https://i.imgur.com/7ArB8E7.jpeg' },
-  { id: 5, category: 'Waterproofing', url: 'https://i.imgur.com/lcJOpKY.jpeg' },
+  { id: 3, category: 'Roofing', url: 'https://i.imgur.com/acc0hyu.jpeg' },
+  { id: 4, category: 'Waterproofing & Restoration', url: 'https://i.imgur.com/7ArB8E7.jpeg' },
+  { id: 5, category: 'Waterproofing & Restoration', url: 'https://i.imgur.com/lcJOpKY.jpeg' },
   { id: 6, category: 'Roofing', url: 'https://i.imgur.com/vpaoSZK.jpeg' },
   { id: 7, category: 'Painting', url: 'https://i.imgur.com/qdjcEIa.jpeg' },
-  { id: 8, category: 'Restoration', url: 'https://i.imgur.com/iGVxcFw.jpeg' },
-  { id: 9, category: 'Waterproofing', url: 'https://i.imgur.com/UEWYH7e.jpeg' },
-  { id: 10, category: 'Roofing', url: 'https://i.imgur.com/4JWvCnt.jpeg' },
-  { id: 11, category: 'Painting', url: 'https://i.imgur.com/1bg8PAZ.jpeg' },
-  { id: 12, category: 'Restoration', url: 'https://i.imgur.com/KBjYpzK.jpeg' },
-  { id: 13, category: 'Waterproofing', url: 'https://i.imgur.com/AgQBkXG.jpeg' },
-  { id: 14, category: 'Roofing', url: 'https://i.imgur.com/i7BY1dX.jpeg' },
-  { id: 15, category: 'Painting', url: 'https://i.imgur.com/hrha8p3.jpeg' },
-  { id: 16, category: 'Restoration', url: 'https://i.imgur.com/gTCSdcN.jpeg' },
-  { id: 17, category: 'Waterproofing', url: 'https://i.imgur.com/DjvTirP.jpeg' },
-  { id: 18, category: 'Roofing', url: 'https://i.imgur.com/IiBTEbE.jpeg' },
-  { id: 19, category: 'Painting', url: 'https://i.imgur.com/Qf4KNJC.jpeg' },
-  { id: 20, category: 'Restoration', url: 'https://i.imgur.com/PXYY1hN.jpeg' },
-  { id: 21, category: 'Waterproofing', url: 'https://i.imgur.com/8ilQ3ei.jpeg' },
-  { id: 22, category: 'Roofing', url: 'https://i.imgur.com/EJ4d6aY.jpeg' },
-  { id: 23, category: 'Painting', url: 'https://i.imgur.com/u74Wqkt.jpeg' },
-  { id: 24, category: 'Restoration', url: 'https://i.imgur.com/6Vv7Cvj.jpeg' },
+  { id: 8, category: 'Waterproofing & Restoration', url: 'https://i.imgur.com/iGVxcFw.jpeg' },
+  { id: 9, category: 'Painting', url: 'https://i.imgur.com/UEWYH7e.jpeg' },
+  { id: 10, category: 'Waterproofing & Restoration', url: 'https://i.imgur.com/0369uN2.jpeg' },
+  { id: 11, category: 'Roofing', url: 'https://i.imgur.com/4Gvbn8A.jpeg' },
+  { id: 12, category: 'Waterproofing & Restoration', url: 'https://i.imgur.com/w8t8XbK.jpeg' },
+  { id: 13, category: 'Waterproofing & Restoration', url: 'https://i.imgur.com/JOHCBMx.jpeg' },
+  { id: 14, category: 'Painting', url: 'https://i.imgur.com/MPf7mVr.png' }
 ];
 
 export const testimonials = [

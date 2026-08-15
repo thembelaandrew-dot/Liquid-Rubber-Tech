@@ -1,4 +1,8 @@
-import { useState } from 'react';
+const fs = require('fs');
+
+let code = fs.readFileSync('src/pages/Gallery.tsx', 'utf8');
+
+const newGalleryContent = `import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { galleryData } from '../data';
 import SEO from '../components/SEO';
@@ -49,11 +53,11 @@ export default function Gallery() {
               <button
                 key={category}
                 onClick={() => setFilter(category)}
-                className={`px-6 py-2 rounded-full font-bold transition-all duration-300 ${
+                className={\`px-6 py-2 rounded-full font-bold transition-all duration-300 \${
                   filter === category
                     ? 'bg-brand-green text-black'
                     : 'glass-panel text-gray-300 hover:text-white hover:bg-white/10'
-                }`}
+                }\`}
               >
                 {category}
               </button>
@@ -72,7 +76,7 @@ export default function Gallery() {
                   key={item.id}
                   className="group relative h-80 rounded-2xl overflow-hidden glass-panel cursor-pointer"
                 >
-                  <img src={item.url} alt={`${item.category} project by Liquid Rubber Tech in Eswatini`} loading="lazy" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                  <img src={item.url} alt={\`\${item.category} project by Liquid Rubber Tech in Eswatini\`} loading="lazy" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                   <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity"></div>
                 </motion.div>
               ))}
@@ -83,3 +87,8 @@ export default function Gallery() {
     </div>
   );
 }
+`;
+
+fs.writeFileSync('src/pages/Gallery.tsx', newGalleryContent);
+console.log('Gallery rewritten');
+
