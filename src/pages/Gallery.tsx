@@ -159,7 +159,7 @@ export default function Gallery() {
             </button>
 
             <div 
-              className="w-full max-w-5xl bg-brand-dark border border-white/10 rounded-2xl overflow-hidden flex flex-col md:flex-row shadow-2xl relative"
+              className="w-full max-w-5xl bg-brand-dark border border-white/10 rounded-2xl overflow-y-auto overflow-x-hidden max-h-[90vh] md:max-h-[80vh] flex flex-col md:flex-row shadow-2xl relative"
               onClick={e => e.stopPropagation()}
             >
               {/* Image Slider Area */}
