@@ -6,6 +6,8 @@ export const servicesData = [
     category: 'ROOFING & WATERPROOFING',
     title: 'Roof Restoration & Roof Coatings',
     description: 'Professional roof restoration and protective coating systems designed to extend the lifespan of existing roofs.',
+    metaTitle: 'Professional Roof Restoration Services in Eswatini | Liquid Rubber Tech',
+    metaDescription: 'Extend the lifespan of your roof with our premium roof restoration and protective coating systems. Request a free quote in Eswatini today.',
     icon: Shield,
     benefits: ['Extends the usable life of existing roofing systems', 'Roof surface protection', 'Protective roof coatings', 'Seamless sealing'],
     process: ['Inspection', 'Surface preparation', 'Crack & joint sealing', 'Protective roof coating application'],
@@ -16,6 +18,8 @@ export const servicesData = [
     category: 'ROOFING & WATERPROOFING',
     title: 'Professional Roof Washing & Cleaning',
     description: 'Professional roof cleaning and washing services to restore the appearance and cleanliness of roofs.',
+    metaTitle: 'Roof Washing & Cleaning Services Eswatini | Remove Dirt & Moss',
+    metaDescription: 'Restore the appearance of your property with professional roof cleaning and washing services in Eswatini. We remove dirt, moss, and algae effectively.',
     icon: Droplets,
     benefits: ['Removal of dirt, moss, and algae', 'General roof washing', 'Roof appearance restoration', 'Healthier-looking roofs'],
     process: ['Site preparation', 'High-pressure roof cleaning', 'Moss and algae treatment', 'Final rinse and inspection'],
@@ -26,6 +30,8 @@ export const servicesData = [
     category: 'ROOFING & WATERPROOFING',
     title: 'Waterproofing Solutions',
     description: 'Advanced liquid-rubber waterproofing solutions for different areas of residential and commercial properties.',
+    metaTitle: 'Advanced Waterproofing Solutions in Eswatini | Liquid Rubber Tech',
+    metaDescription: 'Stop leaks before they damage your property. We offer advanced liquid-rubber waterproofing for roofs, walls, and parapets in Eswatini.',
     icon: CloudRain,
     benefits: ['Protection against water penetration', 'Sealing vulnerable surfaces', 'Roof, wall, parapet & concrete waterproofing', 'Durable protection against leaks'],
     process: ['Surface preparation', 'Moisture testing', 'Application of waterproof membrane', 'Curing and final inspection'],
@@ -36,6 +42,8 @@ export const servicesData = [
     category: 'ROOFING & WATERPROOFING',
     title: 'Gutters & Fascia Installation and Repairs',
     description: 'Installation, repair, and maintenance of gutters and fascia systems for proper water drainage.',
+    metaTitle: 'Gutters & Fascia Installation Eswatini | Repairs & Maintenance',
+    metaDescription: 'Ensure proper water drainage with our professional gutter and fascia installation, repair, and maintenance services in Eswatini.',
     icon: Wrench,
     benefits: ['Improving roof drainage', 'Protecting buildings from water-related damage', 'Neat finishing around roof edges', 'Gutter & fascia maintenance'],
     process: ['Measurement and fabrication', 'Removal of old systems', 'Secure mounting & repairs', 'Water flow testing'],
@@ -46,6 +54,8 @@ export const servicesData = [
     category: 'ROOFING & WATERPROOFING',
     title: 'Damp Wall Treatment',
     description: 'Solutions for walls affected by rising damp and moisture problems, protecting your property.',
+    metaTitle: 'Rising Damp & Wall Treatment Eswatini | Moisture Protection',
+    metaDescription: 'Protect your property from rising damp and moisture problems. We provide effective damp wall treatments and restoration in Eswatini.',
     icon: Droplet,
     benefits: ['Rising damp treatment', 'Moisture protection & prevention', 'Wall restoration', 'Protection against recurring dampness'],
     process: ['Identifying moisture source', 'Surface preparation', 'Treatment application', 'Restoration finishing'],
@@ -56,6 +66,8 @@ export const servicesData = [
     category: 'PROPERTY FINISHING & RENOVATION',
     title: 'Interior & Exterior Painting',
     description: 'High-quality painting solutions for both interior and exterior areas, combining aesthetics and protection.',
+    metaTitle: 'Interior & Exterior Painting Services Eswatini | Premium Finishes',
+    metaDescription: 'Transform your property with high-quality interior and exterior painting solutions. We combine aesthetics with long-lasting surface protection.',
     icon: PaintBucket,
     benefits: ['Property transformation', 'Surface protection', 'Decorative finishing', 'Professional painting solutions'],
     process: ['Surface sanding and cleaning', 'Masking and protection', 'Primer coat', 'Two premium top coats'],
@@ -66,6 +78,8 @@ export const servicesData = [
     category: 'PROPERTY FINISHING & RENOVATION',
     title: 'Ceiling Installation',
     description: 'Modern ceiling installation solutions for residential and commercial properties.',
+    metaTitle: 'Modern Ceiling Installation Eswatini | Residential & Commercial',
+    metaDescription: 'Upgrade your interiors with modern ceiling installation solutions. Professional ceiling workmanship for homes and businesses in Eswatini.',
     icon: Hammer,
     benefits: ['Modern ceiling designs', 'Interior ceiling finishing', 'Professional ceiling workmanship', 'Stylish ceiling improvements and upgrades'],
     process: ['Framework installation', 'Panel mounting', 'Joint sealing & skimming', 'Finishing & painting'],
@@ -76,6 +90,8 @@ export const servicesData = [
     category: 'PROPERTY FINISHING & RENOVATION',
     title: 'Tiling',
     description: 'Professional tiling services for residential and commercial properties.',
+    metaTitle: 'Professional Tiling Services Eswatini | Floor & Wall Tiling',
+    metaDescription: 'High-quality tiling for floors, walls, bathrooms, and kitchens. Experience precision workmanship and durable, attractive finishes.',
     icon: Grid2X2,
     benefits: ['Floor, wall, bathroom & kitchen tiling', 'Decorative tiling', 'Quality workmanship and precision', 'Attractive finishes and durability'],
     process: ['Substrate preparation', 'Layout planning', 'Tile installation', 'Tile finishing and grouting'],
@@ -86,6 +102,8 @@ export const servicesData = [
     category: 'PROPERTY FINISHING & RENOVATION',
     title: 'Epoxy Flooring',
     description: 'Durable and seamless epoxy flooring solutions for residential and commercial properties.',
+    metaTitle: 'Seamless Epoxy Flooring Eswatini | Durable Floor Coatings',
+    metaDescription: 'Get durable and seamless epoxy flooring for residential or commercial properties. Easy-to-clean, protective floor coatings that last.',
     icon: Layers,
     benefits: ['Seamless flooring', 'Durable floor finishes', 'Easy-to-clean flooring', 'Protective floor coatings'],
     process: ['Diamond grinding surface', 'Crack repair', 'Epoxy floor installation', 'Top clear coat sealing'],
@@ -96,6 +114,8 @@ export const servicesData = [
     category: 'CONSTRUCTION & MAINTENANCE',
     title: 'Paving & Concrete Work',
     description: 'Professional paving and concrete construction work, emphasizing precision and durability.',
+    metaTitle: 'Paving & Concrete Construction Eswatini | Driveways & Slabs',
+    metaDescription: 'Expert paving and concrete construction. We build durable driveways, walkways, and concrete slabs emphasizing precision and quality.',
     icon: Box,
     benefits: ['Driveways & walkways', 'Concrete slabs & finishing', 'Quality workmanship', 'Professional finishing'],
     process: ['Surface preparation and grading', 'Base layer compaction', 'Paver laying or concrete pouring', 'Finishing and sealing'],
@@ -106,6 +126,8 @@ export const servicesData = [
     category: 'CONSTRUCTION & MAINTENANCE',
     title: 'Plumbing',
     description: 'Plumbing installation, repair, and maintenance services focusing on reliability and professional workmanship.',
+    metaTitle: 'Professional Plumbing Services Eswatini | Repairs & Installations',
+    metaDescription: 'Reliable plumbing installation, repair, and maintenance services. Ensure your systems function perfectly with our expert workmanship.',
     icon: PenTool,
     benefits: ['Plumbing installations & repairs', 'Plumbing maintenance & system servicing', 'Pipework', 'Reliability and properly functioning systems'],
     process: ['System diagnostics', 'Pipe repair or routing', 'Fixture installation', 'Testing and maintenance'],
@@ -113,21 +135,66 @@ export const servicesData = [
   }
 ];
 
-export const galleryData = [
-  { id: 1, category: 'Waterproofing & Restoration', url: 'https://i.imgur.com/QlvY66l.jpeg' },
-  { id: 2, category: 'Roofing', url: 'https://i.imgur.com/A0mmQOK.jpeg' },
-  { id: 3, category: 'Roofing', url: 'https://i.imgur.com/acc0hyu.jpeg' },
-  { id: 4, category: 'Waterproofing & Restoration', url: 'https://i.imgur.com/7ArB8E7.jpeg' },
-  { id: 5, category: 'Waterproofing & Restoration', url: 'https://i.imgur.com/lcJOpKY.jpeg' },
-  { id: 6, category: 'Roofing', url: 'https://i.imgur.com/vpaoSZK.jpeg' },
-  { id: 7, category: 'Painting', url: 'https://i.imgur.com/qdjcEIa.jpeg' },
-  { id: 8, category: 'Waterproofing & Restoration', url: 'https://i.imgur.com/iGVxcFw.jpeg' },
-  { id: 9, category: 'Painting', url: 'https://i.imgur.com/UEWYH7e.jpeg' },
-  { id: 10, category: 'Waterproofing & Restoration', url: 'https://i.imgur.com/0369uN2.jpeg' },
-  { id: 11, category: 'Roofing', url: 'https://i.imgur.com/4Gvbn8A.jpeg' },
-  { id: 12, category: 'Waterproofing & Restoration', url: 'https://i.imgur.com/w8t8XbK.jpeg' },
-  { id: 13, category: 'Waterproofing & Restoration', url: 'https://i.imgur.com/JOHCBMx.jpeg' },
-  { id: 14, category: 'Painting', url: 'https://i.imgur.com/MPf7mVr.png' }
+export interface GalleryProject {
+  id: number;
+  category: string;
+  title: string;
+  type: 'sequence' | 'single';
+  images: { stage: 'Before' | 'During' | 'After' | 'Combined' | 'Final'; url: string }[];
+}
+
+export const galleryData: GalleryProject[] = [
+  { id: 1, category: 'Roofing', title: 'Roof Restoration', type: 'single', images: [{ stage: 'Combined', url: 'https://i.imgur.com/KEqweYg.jpeg' }] },
+  { id: 2, category: 'Painting', title: 'Exterior Painting', type: 'single', images: [{ stage: 'Combined', url: 'https://i.imgur.com/cWcInUB.jpeg' }] },
+  { id: 3, category: 'Roofing', title: 'Roof Restoration Project', type: 'single', images: [{ stage: 'Combined', url: 'https://i.imgur.com/DOS8Cce.jpeg' }] },
+  { id: 4, category: 'Waterproofing & Restoration', title: 'Roof Restoration & Waterproofing', type: 'single', images: [{ stage: 'Combined', url: 'https://i.imgur.com/pFneYY9.jpeg' }] },
+  { id: 5, category: 'Roofing', title: 'Roof Restoration Complete', type: 'single', images: [{ stage: 'Combined', url: 'https://i.imgur.com/W5NGxA6.jpeg' }] },
+  { id: 6, category: 'Waterproofing & Restoration', title: 'Waterproofing Application', type: 'single', images: [{ stage: 'Combined', url: 'https://i.imgur.com/fSpm7qB.jpeg' }] },
+  { id: 7, category: 'Painting', title: 'Exterior Painting & Gutters', type: 'single', images: [{ stage: 'Combined', url: 'https://i.imgur.com/Y8F4PBm.jpeg' }] },
+  { id: 8, category: 'Roofing', title: 'Roofing Project', type: 'single', images: [{ stage: 'Combined', url: 'https://i.imgur.com/jWBRSuX.jpeg' }] },
+  { 
+    id: 9, category: 'Roofing', title: 'Complete Roof Overhaul', type: 'sequence', 
+    images: [
+      { stage: 'Before', url: 'https://i.imgur.com/w5xhopm.jpeg' },
+      { stage: 'During', url: 'https://i.imgur.com/PC44OH0.jpeg' },
+      { stage: 'After', url: 'https://i.imgur.com/7YF7eS1.jpeg' }
+    ] 
+  },
+  { 
+    id: 10, category: 'Roofing', title: 'Roof Repair & Restoration', type: 'sequence', 
+    images: [
+      { stage: 'Before', url: 'https://i.imgur.com/dRQqKMj.jpeg' },
+      { stage: 'During', url: 'https://i.imgur.com/VOP3u6z.jpeg' },
+      { stage: 'After', url: 'https://i.imgur.com/BAZUsRa.jpeg' }
+    ] 
+  },
+  { 
+    id: 11, category: 'Painting', title: 'Interior Painting Transformation', type: 'sequence', 
+    images: [
+      { stage: 'Before', url: 'https://i.imgur.com/5Ll3JjK.jpeg' },
+      { stage: 'During', url: 'https://i.imgur.com/5RetyeE.jpeg' },
+      { stage: 'After', url: 'https://i.imgur.com/UvnY9go.jpeg' }
+    ] 
+  },
+  { 
+    id: 12, category: 'Waterproofing & Restoration', title: 'Waterproofing Treatment', type: 'sequence', 
+    images: [
+      { stage: 'Before', url: 'https://i.imgur.com/SIM93Pp.jpeg' },
+      { stage: 'During', url: 'https://i.imgur.com/GZJI6pd.jpeg' },
+      { stage: 'After', url: 'https://i.imgur.com/hacXIcJ.jpeg' }
+    ] 
+  },
+  { id: 13, category: 'Roofing', title: 'Roof Restoration', type: 'single', images: [{ stage: 'Combined', url: 'https://i.imgur.com/qB05Fch.jpeg' }] },
+  { id: 14, category: 'Waterproofing & Restoration', title: 'Waterproofing & Roof Protection', type: 'single', images: [{ stage: 'Combined', url: 'https://i.imgur.com/IPLfjan.jpeg' }] },
+  { 
+    id: 15, category: 'Waterproofing & Restoration', title: 'Comprehensive Waterproofing & Restoration', type: 'sequence', 
+    images: [
+      { stage: 'Before', url: 'https://i.imgur.com/LEEMFs8.jpeg' },
+      { stage: 'During', url: 'https://i.imgur.com/wyuo3N1.jpeg' },
+      { stage: 'After', url: 'https://i.imgur.com/DWqVy7m.jpeg' }
+    ] 
+  },
+  { id: 16, category: 'Painting', title: 'Exterior Painting', type: 'single', images: [{ stage: 'Combined', url: 'https://i.imgur.com/5c8Bx0J.jpeg' }] }
 ];
 
 export const testimonials = [

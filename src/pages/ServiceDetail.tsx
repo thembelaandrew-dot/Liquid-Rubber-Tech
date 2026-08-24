@@ -15,8 +15,8 @@ export default function ServiceDetail() {
   return (
     <div className="pt-20">
       <SEO 
-        title={`${service.title} | Eswatini`}
-        description={service.description}
+        title={service.metaTitle || `${service.title} | Eswatini`}
+        description={service.metaDescription || service.description}
         image={service.image}
         url={`https://liquidrubbertech.netlify.app/services/${service.id}`}
       />
