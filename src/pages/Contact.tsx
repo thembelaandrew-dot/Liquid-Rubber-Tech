@@ -29,7 +29,7 @@ export default function Contact() {
                   { icon: Phone, title: 'Call Us', lines: ['7661 0372', '7836 3059'], hrefPrefix: 'tel:+268' },
                   { icon: Mail, title: 'Email', lines: ['lrteswatini@gmail.com'], hrefPrefix: 'mailto:' },
                   { icon: MapPin, title: 'Location', lines: ['Eswatini (Nationwide Service)'] }, // DEVELOPER NOTE: For optimal Local SEO, provide a full physical street address here if available.
-                  { icon: Clock, title: 'Business Hours', lines: ['Mon - Fri: 8:00 AM - 5:00 PM', 'Sat: 9:00 AM - 1:00 PM'] },
+                  { icon: Clock, title: 'Business Hours', lines: ['Mon - Fri: 7:00 AM - 5:00 PM', 'Sat: 7:00 AM - 3:00 PM', 'Sun: Closed'] },
                 ].map((item, i) => (
                   <div key={i} className="flex items-start gap-6">
                     <div className="w-14 h-14 shrink-0 rounded-2xl glass-panel flex items-center justify-center">

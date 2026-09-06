@@ -2,18 +2,6 @@ import { Shield, Droplets, PaintBucket, Wrench, Grid2X2, Hammer, Box, PenTool, C
 
 export const servicesData = [
   {
-    id: 'roof-restoration',
-    category: 'ROOFING & WATERPROOFING',
-    title: 'Roof Restoration & Roof Coatings',
-    description: 'Professional roof restoration and protective coating systems designed to extend the lifespan of existing roofs.',
-    metaTitle: 'Professional Roof Restoration Services in Eswatini | Liquid Rubber Tech',
-    metaDescription: 'Extend the lifespan of your roof with our premium roof restoration and protective coating systems. Request a free quote in Eswatini today.',
-    icon: Shield,
-    benefits: ['Extends the usable life of existing roofing systems', 'Roof surface protection', 'Protective roof coatings', 'Seamless sealing'],
-    process: ['Inspection', 'Surface preparation', 'Crack & joint sealing', 'Protective roof coating application'],
-    image: 'https://i.imgur.com/tmbjtIt.png',
-  },
-  {
     id: 'roof-washing',
     category: 'ROOFING & WATERPROOFING',
     title: 'Professional Roof Washing & Cleaning',
@@ -23,7 +11,19 @@ export const servicesData = [
     icon: Droplets,
     benefits: ['Removal of dirt, moss, and algae', 'General roof washing', 'Roof appearance restoration', 'Healthier-looking roofs'],
     process: ['Site preparation', 'High-pressure roof cleaning', 'Moss and algae treatment', 'Final rinse and inspection'],
-    image: 'https://i.imgur.com/e1VCPdX.png',
+    image: 'https://i.imgur.com/DOS8Cce.jpeg',
+  },
+  {
+    id: 'roof-restoration',
+    category: 'ROOFING & WATERPROOFING',
+    title: 'Roof Restoration & Roof Coatings',
+    description: 'Professional roof restoration and protective coating systems designed to extend the lifespan of existing roofs.',
+    metaTitle: 'Professional Roof Restoration Services in Eswatini | Liquid Rubber Tech',
+    metaDescription: 'Extend the lifespan of your roof with our premium roof restoration and protective coating systems. Request a free quote in Eswatini today.',
+    icon: Shield,
+    benefits: ['Extends the usable life of existing roofing systems', 'Roof surface protection', 'Protective roof coatings', 'Seamless sealing'],
+    process: ['Inspection', 'Surface preparation', 'Crack & joint sealing', 'Protective roof coating application'],
+    image: 'https://i.imgur.com/KEqweYg.jpeg',
   },
   {
     id: 'waterproofing',
@@ -35,7 +35,7 @@ export const servicesData = [
     icon: CloudRain,
     benefits: ['Protection against water penetration', 'Sealing vulnerable surfaces', 'Roof, wall, parapet & concrete waterproofing', 'Durable protection against leaks'],
     process: ['Surface preparation', 'Moisture testing', 'Application of waterproof membrane', 'Curing and final inspection'],
-    image: 'https://i.imgur.com/traTT2o.jpeg',
+    image: 'https://i.imgur.com/IPLfjan.jpeg',
   },
   {
     id: 'gutters',
