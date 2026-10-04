@@ -144,16 +144,16 @@ export interface GalleryProject {
 }
 
 export const galleryData: GalleryProject[] = [
-  { id: 1, category: 'Roofing', title: 'Roof Restoration', type: 'single', images: [{ stage: 'Combined', url: 'https://i.imgur.com/KEqweYg.jpeg' }] },
+  { id: 1, category: 'Roof Restoration', title: 'Roof Restoration', type: 'single', images: [{ stage: 'Combined', url: 'https://i.imgur.com/KEqweYg.jpeg' }] },
   { id: 2, category: 'Painting', title: 'Exterior Painting', type: 'single', images: [{ stage: 'Combined', url: 'https://i.imgur.com/cWcInUB.jpeg' }] },
-  { id: 3, category: 'Roofing', title: 'Roof Restoration Project', type: 'single', images: [{ stage: 'Combined', url: 'https://i.imgur.com/DOS8Cce.jpeg' }] },
+  { id: 3, category: 'Roof Restoration', title: 'Roof Restoration Project', type: 'single', images: [{ stage: 'Combined', url: 'https://i.imgur.com/DOS8Cce.jpeg' }] },
   { id: 4, category: 'Waterproofing & Restoration', title: 'Roof Restoration & Waterproofing', type: 'single', images: [{ stage: 'Combined', url: 'https://i.imgur.com/pFneYY9.jpeg' }] },
-  { id: 5, category: 'Roofing', title: 'Roof Restoration Complete', type: 'single', images: [{ stage: 'Combined', url: 'https://i.imgur.com/W5NGxA6.jpeg' }] },
+  { id: 5, category: 'Roof Restoration', title: 'Roof Restoration Complete', type: 'single', images: [{ stage: 'Combined', url: 'https://i.imgur.com/W5NGxA6.jpeg' }] },
   { id: 6, category: 'Waterproofing & Restoration', title: 'Waterproofing Application', type: 'single', images: [{ stage: 'Combined', url: 'https://i.imgur.com/fSpm7qB.jpeg' }] },
   { id: 7, category: 'Painting', title: 'Exterior Painting & Gutters', type: 'single', images: [{ stage: 'Combined', url: 'https://i.imgur.com/Y8F4PBm.jpeg' }] },
-  { id: 8, category: 'Roofing', title: 'Roofing Project', type: 'single', images: [{ stage: 'Combined', url: 'https://i.imgur.com/jWBRSuX.jpeg' }] },
+  { id: 8, category: 'Roof Restoration', title: 'Roofing Project', type: 'single', images: [{ stage: 'Combined', url: 'https://i.imgur.com/jWBRSuX.jpeg' }] },
   { 
-    id: 9, category: 'Roofing', title: 'Complete Roof Overhaul', type: 'sequence', 
+    id: 9, category: 'Roof Restoration', title: 'Complete Roof Overhaul', type: 'sequence', 
     images: [
       { stage: 'Before', url: 'https://i.imgur.com/w5xhopm.jpeg' },
       { stage: 'During', url: 'https://i.imgur.com/PC44OH0.jpeg' },
@@ -161,7 +161,7 @@ export const galleryData: GalleryProject[] = [
     ] 
   },
   { 
-    id: 10, category: 'Roofing', title: 'Roof Repair & Restoration', type: 'sequence', 
+    id: 10, category: 'Roof Restoration', title: 'Roof Repair & Restoration', type: 'sequence', 
     images: [
       { stage: 'Before', url: 'https://i.imgur.com/dRQqKMj.jpeg' },
       { stage: 'During', url: 'https://i.imgur.com/VOP3u6z.jpeg' },
@@ -184,7 +184,7 @@ export const galleryData: GalleryProject[] = [
       { stage: 'After', url: 'https://i.imgur.com/hacXIcJ.jpeg' }
     ] 
   },
-  { id: 13, category: 'Roofing', title: 'Roof Restoration', type: 'single', images: [{ stage: 'Combined', url: 'https://i.imgur.com/qB05Fch.jpeg' }] },
+  { id: 13, category: 'Roof Restoration', title: 'Roof Restoration', type: 'single', images: [{ stage: 'Combined', url: 'https://i.imgur.com/qB05Fch.jpeg' }] },
   { id: 14, category: 'Waterproofing & Restoration', title: 'Waterproofing & Roof Protection', type: 'single', images: [{ stage: 'Combined', url: 'https://i.imgur.com/IPLfjan.jpeg' }] },
   { 
     id: 15, category: 'Waterproofing & Restoration', title: 'Comprehensive Waterproofing & Restoration', type: 'sequence', 
@@ -194,7 +194,74 @@ export const galleryData: GalleryProject[] = [
       { stage: 'After', url: 'https://i.imgur.com/DWqVy7m.jpeg' }
     ] 
   },
-  { id: 16, category: 'Painting', title: 'Exterior Painting', type: 'single', images: [{ stage: 'Combined', url: 'https://i.imgur.com/5c8Bx0J.jpeg' }] }
+  { id: 16, category: 'Painting', title: 'Exterior Painting', type: 'single', images: [{ stage: 'Combined', url: 'https://i.imgur.com/5c8Bx0J.jpeg' }] },
+  { 
+    id: 17, category: 'Roof Restoration', title: 'Roof Restoration', type: 'sequence', 
+    images: [
+      { stage: 'Before', url: 'https://i.imgur.com/JX2i69a.jpeg' },
+      { stage: 'During', url: 'https://i.imgur.com/TUtQSqQ.jpeg' },
+      { stage: 'After', url: 'https://i.imgur.com/uePG9cJ.jpeg' }
+    ] 
+  },
+  { 
+    id: 18, category: 'Roof Restoration', title: 'Roof Restoration', type: 'sequence', 
+    images: [
+      { stage: 'Before', url: 'https://i.imgur.com/XYHxokj.jpeg' },
+      { stage: 'During', url: 'https://i.imgur.com/EBdyv2x.jpeg' },
+      { stage: 'After', url: 'https://i.imgur.com/ZSvf9gq.jpeg' }
+    ] 
+  },
+  { 
+    id: 19, category: 'Roof Restoration', title: 'Roof Restoration', type: 'sequence', 
+    images: [
+      { stage: 'Before', url: 'https://i.imgur.com/LIgwyPh.jpeg' },
+      { stage: 'During', url: 'https://i.imgur.com/si1EE1s.jpeg' },
+      { stage: 'After', url: 'https://i.imgur.com/tWIpDqd.jpeg' }
+    ] 
+  },
+  { 
+    id: 20, 
+    category: 'Epoxy & Flooring', 
+    title: 'Epoxy Flooring Transformation', 
+    type: 'sequence', 
+    images: [
+      { stage: 'Before', url: 'https://i.imgur.com/57lklGb.jpeg' },
+      { stage: 'After', url: 'https://i.imgur.com/wXqJMeS.jpeg' }
+    ] 
+  },
+  { 
+    id: 21, 
+    category: 'Roof Restoration', 
+    title: 'Roof Restoration', 
+    type: 'sequence', 
+    images: [
+      { stage: 'Before', url: 'https://i.imgur.com/c3H75kd.jpeg' },
+      { stage: 'During', url: 'https://i.imgur.com/4QWgXpJ.jpeg' },
+      { stage: 'After', url: 'https://i.imgur.com/9dmJZ3e.jpeg' }
+    ] 
+  },
+  { 
+    id: 22, 
+    category: 'Property Finishing & Renovation', 
+    title: 'Property Renovation & Finishing', 
+    type: 'sequence', 
+    images: [
+      { stage: 'Before', url: 'https://i.imgur.com/VTIF9OG.jpeg' },
+      { stage: 'During', url: 'https://i.imgur.com/KcuiNRJ.jpeg' },
+      { stage: 'After', url: 'https://i.imgur.com/iFtz8FI.jpeg' }
+    ] 
+  },
+  { 
+    id: 23, 
+    category: 'Roof Restoration', 
+    title: 'Roof Restoration', 
+    type: 'sequence', 
+    images: [
+      { stage: 'Before', url: 'https://i.imgur.com/rzj6MSV.jpeg' },
+      { stage: 'During', url: 'https://i.imgur.com/UgotMlC.jpeg' },
+      { stage: 'After', url: 'https://i.imgur.com/Fh0Z0Ri.jpeg' }
+    ] 
+  }
 ];
 
 export const testimonials = [

@@ -8,25 +8,64 @@ export default function Home() {
   return (
     <div className="flex flex-col w-full">
       <SEO 
-        title="Waterproofing & Roof Restoration | Liquid Rubber Tech | Eswatini" 
-        description="Liquid Rubber Tech Investments specializes in premium waterproofing, roof restoration, and high-end construction solutions across Eswatini. 100% leak-free guarantee."
-        url="https://liquidrubbertech.netlify.app/"
-        schema={{
-          "@context": "https://schema.org",
-          "@type": "RoofingContractor",
-          "name": "Liquid Rubber Tech Investments",
-          "image": "https://i.imgur.com/K1Pyv2G.jpeg",
-          "description": "Premium waterproofing and roof restoration services in Eswatini.",
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Manzini",
-            "addressRegion": "Manzini",
-            "addressCountry": "SZ"
+        title="Liquid Rubber Tech | Waterproofing & Roofing in Eswatini" 
+        description="Liquid Rubber Tech offers expert waterproofing, roof restoration, painting, and property maintenance services across Eswatini. Contact us for a quote."
+        url="https://liquidrubbertech.co.za/"
+        schema={[
+          {
+            "@context": "https://schema.org",
+            "@type": "HomeAndConstructionBusiness",
+            "name": "Liquid Rubber Tech Investments",
+            "alternateName": "Liquid Rubber Tech",
+            "image": "https://i.imgur.com/K1Pyv2G.jpeg",
+            "logo": "https://i.imgur.com/96Q9RnA.jpeg",
+            "description": "Professional property restoration, roofing, waterproofing, construction finishing, and maintenance company in Eswatini.",
+            "priceRange": "$$",
+            "hasMap": "https://maps.google.com/?q=Manzini,Eswatini",
+            "currenciesAccepted": "SZL, ZAR",
+            "paymentAccepted": "Cash, Bank Transfer, EFT",
+            "address": {
+              "@type": "PostalAddress",
+              "addressCountry": "SZ"
+            },
+            "areaServed": {
+              "@type": "Country",
+              "name": "Eswatini"
+            },
+            "telephone": "+268-7661-0372",
+            "email": "lrteswatini@gmail.com",
+            "url": "https://liquidrubbertech.co.za/",
+            "sameAs": [
+              "https://www.facebook.com/profile.php?id=61588501700280",
+              "https://www.instagram.com/liquid_rubber_tech_sz?igsh=cXFuaGJtazA3NDh1"
+            ],
+            "openingHoursSpecification": [
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                "opens": "07:00",
+                "closes": "17:00"
+              },
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": "Saturday",
+                "opens": "07:00",
+                "closes": "15:00"
+              }
+            ]
           },
-          "areaServed": "Eswatini",
-          "telephone": "+268-7661-0372",
-          "url": "https://liquidrubbertech.netlify.app/"
-        }}
+          {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "Liquid Rubber Tech",
+            "url": "https://liquidrubbertech.co.za/",
+            "publisher": {
+              "@type": "Organization",
+              "name": "Liquid Rubber Tech Investments",
+              "logo": "https://i.imgur.com/96Q9RnA.jpeg"
+            }
+          }
+        ]}
       />
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
@@ -159,7 +198,7 @@ export default function Home() {
                       <item.icon className="w-6 h-6 text-brand-blue" />
                     </div>
                     <div>
-                      <h4 className="font-bold text-lg">{item.title}</h4>
+                      <h3 className="font-bold text-lg">{item.title}</h3>
                       <p className="text-gray-400 text-sm">{item.desc}</p>
                     </div>
                   </li>

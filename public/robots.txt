@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://liquidrubbertech.netlify.app/sitemap.xml
+Sitemap: https://liquidrubbertech.co.za/sitemap.xml

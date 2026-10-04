@@ -10,6 +10,7 @@ const Services = lazy(() => import('./pages/Services'));
 const ServiceDetail = lazy(() => import('./pages/ServiceDetail'));
 const Gallery = lazy(() => import('./pages/Gallery'));
 const Contact = lazy(() => import('./pages/Contact'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -61,6 +62,11 @@ export default function App() {
             <Route path="contact" element={
               <Suspense fallback={<PageLoader />}>
                 <Contact />
+              </Suspense>
+            } />
+            <Route path="*" element={
+              <Suspense fallback={<PageLoader />}>
+                <NotFound />
               </Suspense>
             } />
           </Route>

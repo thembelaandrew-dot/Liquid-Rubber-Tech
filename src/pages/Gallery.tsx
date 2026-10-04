@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { galleryData, GalleryProject } from '../data';
 import SEO from '../components/SEO';
@@ -9,14 +9,28 @@ export default function Gallery() {
   const [selectedProject, setSelectedProject] = useState<GalleryProject | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const categories = ['All', ...new Set(galleryData.map(item => item.category))];
+  const categoryOrder: Record<string, number> = {
+    'Roof Restoration': 1,
+    'Roofing': 1,
+    'Waterproofing & Restoration': 2,
+    'Painting': 3,
+    'Epoxy & Flooring': 4,
+    'Property Finishing & Renovation': 5,
+    'Property Finishing and Renovation': 5,
+  };
+
+  const categories = [
+    'All',
+    ...Array.from(new Set(galleryData.map(item => item.category)))
+      .sort((a, b) => (categoryOrder[a] || 99) - (categoryOrder[b] || 99))
+  ];
   
   // Sort items: Group by category (if 'All'), then put 'single' before 'sequence'
   const filteredData = galleryData
     .filter(item => filter === 'All' || item.category === filter)
     .sort((a, b) => {
       if (filter === 'All' && a.category !== b.category) {
-        return a.category.localeCompare(b.category);
+        return (categoryOrder[a.category] || 99) - (categoryOrder[b.category] || 99);
       }
       if (a.type !== b.type) {
         return a.type === 'single' ? -1 : 1;
@@ -52,9 +66,41 @@ export default function Gallery() {
   return (
     <div className="pt-20 min-h-screen flex flex-col">
       <SEO 
-        title="Project Gallery | Liquid Rubber Tech Past Work" 
+        title="Project Gallery | Liquid Rubber Tech Past Work in Eswatini" 
         description="View our portfolio of completed projects in Eswatini. See the quality of our waterproofing, roofing, painting, and construction work."
-        url="https://liquidrubbertech.netlify.app/gallery"
+        url="https://liquidrubbertech.co.za/gallery"
+        schema={[
+          {
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            "name": "Project Gallery - Liquid Rubber Tech",
+            "url": "https://liquidrubbertech.co.za/gallery",
+            "description": "View our portfolio of completed projects in Eswatini. See the quality of our waterproofing, roofing, painting, and construction work.",
+            "provider": {
+              "@type": "HomeAndConstructionBusiness",
+              "name": "Liquid Rubber Tech Investments",
+              "url": "https://liquidrubbertech.co.za/"
+            }
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://liquidrubbertech.co.za/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Featured Work",
+                "item": "https://liquidrubbertech.co.za/gallery"
+              }
+            ]
+          }
+        ]}
       />
 
       <section className="py-24 relative flex-grow overflow-hidden">
@@ -153,6 +199,7 @@ export default function Gallery() {
           >
             <button 
               onClick={closeModal}
+              aria-label="Close project preview"
               className="absolute top-6 right-6 p-2 bg-white/10 hover:bg-brand-green rounded-full text-white hover:text-black transition-colors z-50"
             >
               <X className="w-6 h-6" />
@@ -188,6 +235,7 @@ export default function Gallery() {
                     <button 
                       onClick={prevImage}
                       disabled={currentImageIndex === 0}
+                      aria-label="Previous image"
                       className={`absolute left-4 p-3 rounded-full bg-black/50 text-white backdrop-blur-md transition-all ${currentImageIndex === 0 ? 'opacity-0' : 'opacity-100 hover:bg-brand-green hover:text-black'}`}
                     >
                       <ChevronLeft className="w-6 h-6" />
@@ -195,6 +243,7 @@ export default function Gallery() {
                     <button 
                       onClick={nextImage}
                       disabled={currentImageIndex === selectedProject.images.length - 1}
+                      aria-label="Next image"
                       className={`absolute right-4 p-3 rounded-full bg-black/50 text-white backdrop-blur-md transition-all ${currentImageIndex === selectedProject.images.length - 1 ? 'opacity-0' : 'opacity-100 hover:bg-brand-green hover:text-black'}`}
                     >
                       <ChevronRight className="w-6 h-6" />
@@ -226,10 +275,11 @@ export default function Gallery() {
                         <button
                           key={idx}
                           onClick={() => setCurrentImageIndex(idx)}
+                          aria-label={`View ${img.stage} phase of ${selectedProject.title}`}
                           className={`flex items-center gap-4 p-3 rounded-xl border text-left transition-all ${currentImageIndex === idx ? 'border-brand-green bg-brand-green/10' : 'border-white/10 hover:bg-white/5'}`}
                         >
                           <div className={`w-10 h-10 rounded-lg overflow-hidden shrink-0 ${currentImageIndex === idx ? 'ring-2 ring-brand-green ring-offset-2 ring-offset-brand-dark' : ''}`}>
-                            <img src={img.url} className="w-full h-full object-cover" alt="thumbnail" />
+                            <img src={img.url} className="w-full h-full object-cover" alt={`${selectedProject.title} - ${img.stage} phase thumbnail`} />
                           </div>
                           <span className={`font-bold ${currentImageIndex === idx ? 'text-brand-green' : 'text-gray-300'}`}>
                             {img.stage} Phase

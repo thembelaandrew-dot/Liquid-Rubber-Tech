@@ -8,9 +8,55 @@ export default function Services() {
   return (
     <div className="pt-20">
       <SEO 
-        title="Our Services | Waterproofing, Roofing & Construction | Eswatini" 
-        description="Explore our comprehensive property services in Eswatini, including premium waterproofing, roof restorations, epoxy flooring, and full property renovations."
-        url="https://liquidrubbertech.netlify.app/services"
+        title="Services | Waterproofing, Roofing & Property Maintenance in Eswatini" 
+        description="Explore our comprehensive property services in Eswatini, including premium waterproofing, roof restorations, painting, epoxy flooring, and property maintenance."
+        url="https://liquidrubbertech.co.za/services"
+        schema={[
+          {
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            "name": "Property Services - Liquid Rubber Tech",
+            "url": "https://liquidrubbertech.co.za/services",
+            "description": "Explore our comprehensive property services in Eswatini, including premium waterproofing, roof restorations, painting, epoxy flooring, and property maintenance.",
+            "provider": {
+              "@type": "HomeAndConstructionBusiness",
+              "name": "Liquid Rubber Tech Investments",
+              "url": "https://liquidrubbertech.co.za/"
+            },
+            "hasOfferCatalog": {
+              "@type": "OfferCatalog",
+              "name": "Construction & Waterproofing Services",
+              "itemListElement": servicesData.map((service, index) => ({
+                "@type": "Offer",
+                "position": index + 1,
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": service.title,
+                  "description": service.description,
+                  "url": `https://liquidrubbertech.co.za/services/${service.id}`
+                }
+              }))
+            }
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://liquidrubbertech.co.za/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Services",
+                "item": "https://liquidrubbertech.co.za/services"
+              }
+            ]
+          }
+        ]}
       />
       <section className="py-24 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">

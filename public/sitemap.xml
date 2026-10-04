@@ -1,55 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://liquidrubbertech.netlify.app/</loc>
+    <loc>https://liquidrubbertech.co.za/</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://liquidrubbertech.netlify.app/about</loc>
+    <loc>https://liquidrubbertech.co.za/about</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://liquidrubbertech.netlify.app/services</loc>
+    <loc>https://liquidrubbertech.co.za/services</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://liquidrubbertech.netlify.app/gallery</loc>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://liquidrubbertech.netlify.app/contact</loc>
+    <loc>https://liquidrubbertech.co.za/gallery</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://liquidrubbertech.netlify.app/services/waterproofing</loc>
+    <loc>https://liquidrubbertech.co.za/contact</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://liquidrubbertech.co.za/services/roof-washing</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://liquidrubbertech.netlify.app/services/roof-restoration</loc>
+    <loc>https://liquidrubbertech.co.za/services/roof-restoration</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://liquidrubbertech.netlify.app/services/painting</loc>
+    <loc>https://liquidrubbertech.co.za/services/waterproofing</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://liquidrubbertech.netlify.app/services/epoxy</loc>
+    <loc>https://liquidrubbertech.co.za/services/gutters</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://liquidrubbertech.netlify.app/services/tiling</loc>
+    <loc>https://liquidrubbertech.co.za/services/damp-wall</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://liquidrubbertech.netlify.app/services/roof-washing</loc>
+    <loc>https://liquidrubbertech.co.za/services/painting</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://liquidrubbertech.netlify.app/services/plumbing</loc>
+    <loc>https://liquidrubbertech.co.za/services/ceiling</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://liquidrubbertech.netlify.app/services/ceiling</loc>
+    <loc>https://liquidrubbertech.co.za/services/tiling</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://liquidrubbertech.co.za/services/epoxy</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://liquidrubbertech.co.za/services/paving</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://liquidrubbertech.co.za/services/plumbing</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 </urlset>

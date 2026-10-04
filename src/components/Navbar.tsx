@@ -60,7 +60,11 @@ export default function Navbar() {
 
           {/* Mobile Menu Button */}
           <div className="lg:hidden flex items-center relative z-50">
-            <button onClick={() => setIsOpen(!isOpen)} className="text-gray-300 hover:text-white p-2 focus:outline-none">
+            <button 
+              onClick={() => setIsOpen(!isOpen)} 
+              aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+              className="text-gray-300 hover:text-white p-2 focus:outline-none"
+            >
               {isOpen ? <X className="w-7 h-7 text-brand-green" /> : <Menu className="w-7 h-7" />}
             </button>
           </div>

@@ -6,9 +6,41 @@ export default function About() {
   return (
     <div className="pt-20">
       <SEO 
-        title="About Liquid Rubber Tech | Eswatini Construction Experts" 
-        description="Learn about Liquid Rubber Tech Investments, Eswatini’s trusted experts in waterproofing, property restoration, and durable construction solutions."
-        url="https://liquidrubbertech.netlify.app/about"
+        title="About Liquid Rubber Tech | Eswatini Construction & Waterproofing" 
+        description="Learn about Liquid Rubber Tech Investments, Eswatini's trusted specialists in waterproofing, roof restorations, painting, and durable property solutions."
+        url="https://liquidrubbertech.co.za/about"
+        schema={[
+          {
+            "@context": "https://schema.org",
+            "@type": "AboutPage",
+            "name": "About Liquid Rubber Tech",
+            "url": "https://liquidrubbertech.co.za/about",
+            "description": "Learn about Liquid Rubber Tech Investments, Eswatini's trusted specialists in waterproofing, roof restorations, painting, and durable property solutions.",
+            "mainEntity": {
+              "@type": "HomeAndConstructionBusiness",
+              "name": "Liquid Rubber Tech Investments",
+              "url": "https://liquidrubbertech.co.za/"
+            }
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://liquidrubbertech.co.za/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "About Us",
+                "item": "https://liquidrubbertech.co.za/about"
+              }
+            ]
+          }
+        ]}
       />
       {/* Header */}
       <section className="relative py-24 overflow-hidden">
@@ -37,6 +69,7 @@ export default function About() {
       {/* Core Values */}
       <section className="py-24 bg-[#080808] border-y border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="sr-only">Our Core Values</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               { icon: Target, title: 'Precision', desc: 'Every application is calculated, measured, and executed flawlessly.' },

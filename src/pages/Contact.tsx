@@ -8,7 +8,59 @@ export default function Contact() {
       <SEO 
         title="Contact Liquid Rubber Tech | Get a Quote in Eswatini" 
         description="Contact our team for a free consultation or project quote. Nationwide service in Eswatini for residential and commercial property protection."
-        url="https://liquidrubbertech.netlify.app/contact"
+        url="https://liquidrubbertech.co.za/contact"
+        schema={[
+          {
+            "@context": "https://schema.org",
+            "@type": "ContactPage",
+            "name": "Contact Liquid Rubber Tech",
+            "url": "https://liquidrubbertech.co.za/contact",
+            "description": "Contact our team for a free consultation or project quote. Nationwide service in Eswatini for residential and commercial property protection.",
+            "mainEntity": {
+              "@type": "HomeAndConstructionBusiness",
+              "name": "Liquid Rubber Tech Investments",
+              "telephone": "+268-7661-0372",
+              "email": "lrteswatini@gmail.com",
+              "url": "https://liquidrubbertech.co.za/",
+              "areaServed": {
+                "@type": "Country",
+                "name": "Eswatini"
+              },
+              "openingHoursSpecification": [
+                {
+                  "@type": "OpeningHoursSpecification",
+                  "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                  "opens": "07:00",
+                  "closes": "17:00"
+                },
+                {
+                  "@type": "OpeningHoursSpecification",
+                  "dayOfWeek": "Saturday",
+                  "opens": "07:00",
+                  "closes": "15:00"
+                }
+              ]
+            }
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://liquidrubbertech.co.za/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Contact",
+                "item": "https://liquidrubbertech.co.za/contact"
+              }
+            ]
+          }
+        ]}
       />
       <section className="py-24 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -36,7 +88,7 @@ export default function Contact() {
                       <item.icon className="w-6 h-6 text-brand-blue" />
                     </div>
                     <div>
-                      <h4 className="font-bold text-lg mb-2">{item.title}</h4>
+                      <h3 className="font-bold text-lg mb-2">{item.title}</h3>
                       {item.lines.map((line, j) => (
                         item.hrefPrefix ? 
                           <a key={j} href={`${item.hrefPrefix}${line.replace(/\s/g, '')}`} className="block text-gray-400 hover:text-brand-green transition-colors">{line}</a> :
@@ -63,7 +115,7 @@ export default function Contact() {
                   <Phone className="w-10 h-10 text-brand-green" />
                 </div>
                 
-                <h3 className="text-3xl font-display font-bold mb-4">Ready to start?</h3>
+                <h2 className="text-3xl font-display font-bold mb-4">Ready to start?</h2>
                 <p className="text-gray-400 mb-8 max-w-md mx-auto leading-relaxed">
                   Get in touch with us directly via WhatsApp or phone. We're ready to answer your questions and provide a quote for your project.
                 </p>
@@ -89,6 +141,7 @@ export default function Contact() {
             className="mt-24 h-[400px] w-full rounded-2xl overflow-hidden glass-panel p-2"
           >
             <iframe 
+              title="Liquid Rubber Tech service location in Eswatini"
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d114170.81734267885!2d31.114704381395567!3d-26.505703478950153!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e8e89f89fb0e5bf%3A0x6b2ec0473a216f46!2sManzini%2C%20Eswatini!5e0!3m2!1sen!2sus!4v1707000000000!5m2!1sen!2sus" 
               className="w-full h-full rounded-xl" 
               style={{ border: 0 }} 
