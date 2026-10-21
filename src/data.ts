@@ -119,19 +119,29 @@ export const servicesData = [
     icon: Box,
     benefits: ['Driveways & walkways', 'Concrete slabs & finishing', 'Quality workmanship', 'Professional finishing'],
     process: ['Surface preparation and grading', 'Base layer compaction', 'Paver laying or concrete pouring', 'Finishing and sealing'],
-    image: 'https://i.imgur.com/Yh17Ohc.jpeg',
+    image: 'https://i.imgur.com/5xNSDqH.jpeg',
   },
   {
     id: 'plumbing',
     category: 'CONSTRUCTION & MAINTENANCE',
-    title: 'Plumbing',
-    description: 'Plumbing installation, repair, and maintenance services focusing on reliability and professional workmanship.',
-    metaTitle: 'Professional Plumbing Services Eswatini | Repairs & Installations',
-    metaDescription: 'Reliable plumbing installation, repair, and maintenance services. Ensure your systems function perfectly with our expert workmanship.',
+    title: 'Plumbing & Bathroom Restoration',
+    description: 'Specialized plumbing installations, sanitary repairs, and comprehensive bathroom restoration & waterproofing services.',
+    metaTitle: 'Professional Plumbing & Bathroom Restoration Eswatini | Repairs & Renovations',
+    metaDescription: 'Expert plumbing and bathroom restoration services in Eswatini. High quality pipework, fixture upgrades, leak proofing and complete bathroom makeovers.',
     icon: PenTool,
-    benefits: ['Plumbing installations & repairs', 'Plumbing maintenance & system servicing', 'Pipework', 'Reliability and properly functioning systems'],
-    process: ['System diagnostics', 'Pipe repair or routing', 'Fixture installation', 'Testing and maintenance'],
-    image: 'data:image/webp;base64,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',
+    benefits: [
+      'Plumbing installations & repairs',
+      'Complete bathroom restoration & modern upgrades',
+      'Pipework, sanitaryware & drainage',
+      'Reliability, properly functioning systems & durable waterproofing'
+    ],
+    process: [
+      'System diagnostics & site inspection',
+      'Pipe repair, routing & surface preparation',
+      'Sanitary fixture installation & waterproofing',
+      'Pressure testing, sealing & final quality handover'
+    ],
+    image: 'https://i.imgur.com/YWjsMPQ.jpeg',
   }
 ];
 
@@ -145,12 +155,12 @@ export interface GalleryProject {
 
 export const galleryData: GalleryProject[] = [
   { id: 1, category: 'Roof Restoration', title: 'Roof Restoration', type: 'single', images: [{ stage: 'Combined', url: 'https://i.imgur.com/KEqweYg.jpeg' }] },
-  { id: 2, category: 'Painting', title: 'Exterior Painting', type: 'single', images: [{ stage: 'Combined', url: 'https://i.imgur.com/cWcInUB.jpeg' }] },
+  { id: 2, category: 'Painting & Restoration', title: 'Exterior Painting', type: 'single', images: [{ stage: 'Combined', url: 'https://i.imgur.com/cWcInUB.jpeg' }] },
   { id: 3, category: 'Roof Restoration', title: 'Roof Restoration Project', type: 'single', images: [{ stage: 'Combined', url: 'https://i.imgur.com/DOS8Cce.jpeg' }] },
   { id: 4, category: 'Waterproofing & Restoration', title: 'Roof Restoration & Waterproofing', type: 'single', images: [{ stage: 'Combined', url: 'https://i.imgur.com/pFneYY9.jpeg' }] },
   { id: 5, category: 'Roof Restoration', title: 'Roof Restoration Complete', type: 'single', images: [{ stage: 'Combined', url: 'https://i.imgur.com/W5NGxA6.jpeg' }] },
   { id: 6, category: 'Waterproofing & Restoration', title: 'Waterproofing Application', type: 'single', images: [{ stage: 'Combined', url: 'https://i.imgur.com/fSpm7qB.jpeg' }] },
-  { id: 7, category: 'Painting', title: 'Exterior Painting & Gutters', type: 'single', images: [{ stage: 'Combined', url: 'https://i.imgur.com/Y8F4PBm.jpeg' }] },
+  { id: 7, category: 'Painting & Restoration', title: 'Exterior Painting & Gutters', type: 'single', images: [{ stage: 'Combined', url: 'https://i.imgur.com/Y8F4PBm.jpeg' }] },
   { id: 8, category: 'Roof Restoration', title: 'Roofing Project', type: 'single', images: [{ stage: 'Combined', url: 'https://i.imgur.com/jWBRSuX.jpeg' }] },
   { 
     id: 9, category: 'Roof Restoration', title: 'Complete Roof Overhaul', type: 'sequence', 
@@ -169,7 +179,7 @@ export const galleryData: GalleryProject[] = [
     ] 
   },
   { 
-    id: 11, category: 'Painting', title: 'Interior Painting Transformation', type: 'sequence', 
+    id: 11, category: 'Painting & Restoration', title: 'Interior Painting Transformation', type: 'sequence', 
     images: [
       { stage: 'Before', url: 'https://i.imgur.com/5Ll3JjK.jpeg' },
       { stage: 'During', url: 'https://i.imgur.com/5RetyeE.jpeg' },
@@ -194,7 +204,7 @@ export const galleryData: GalleryProject[] = [
       { stage: 'After', url: 'https://i.imgur.com/DWqVy7m.jpeg' }
     ] 
   },
-  { id: 16, category: 'Painting', title: 'Exterior Painting', type: 'single', images: [{ stage: 'Combined', url: 'https://i.imgur.com/5c8Bx0J.jpeg' }] },
+  { id: 16, category: 'Painting & Restoration', title: 'Exterior Painting', type: 'single', images: [{ stage: 'Combined', url: 'https://i.imgur.com/5c8Bx0J.jpeg' }] },
   { 
     id: 17, category: 'Roof Restoration', title: 'Roof Restoration', type: 'sequence', 
     images: [
@@ -260,6 +270,61 @@ export const galleryData: GalleryProject[] = [
       { stage: 'Before', url: 'https://i.imgur.com/rzj6MSV.jpeg' },
       { stage: 'During', url: 'https://i.imgur.com/UgotMlC.jpeg' },
       { stage: 'After', url: 'https://i.imgur.com/Fh0Z0Ri.jpeg' }
+    ] 
+  },
+  { 
+    id: 24, 
+    category: 'Roof Restoration', 
+    title: 'Roof Restoration', 
+    type: 'sequence', 
+    images: [
+      { stage: 'Before', url: 'https://i.imgur.com/hLX9QlW.jpeg' },
+      { stage: 'During', url: 'https://i.imgur.com/Gs7upaR.jpeg' },
+      { stage: 'After', url: 'https://i.imgur.com/wzuSquF.jpeg' }
+    ] 
+  },
+  { 
+    id: 25, 
+    category: 'Roof Restoration', 
+    title: 'Roof Restoration', 
+    type: 'sequence', 
+    images: [
+      { stage: 'Before', url: 'https://i.imgur.com/w2di5A8.jpeg' },
+      { stage: 'During', url: 'https://i.imgur.com/4j54VHh.jpeg' },
+      { stage: 'After', url: 'https://i.imgur.com/O1dA0AY.jpeg' }
+    ] 
+  },
+  { 
+    id: 26, 
+    category: 'Plumbing & Bathroom Restoration', 
+    title: 'Plumbing & Bathroom Restoration', 
+    type: 'sequence', 
+    images: [
+      { stage: 'Before', url: 'https://i.imgur.com/gLXsymO.jpeg' },
+      { stage: 'During', url: 'https://i.imgur.com/30px9Kf.jpeg' },
+      { stage: 'After', url: 'https://i.imgur.com/YWjsMPQ.jpeg' }
+    ] 
+  },
+  { 
+    id: 27, 
+    category: 'Painting & Restoration', 
+    title: 'Painting & Surface Restoration', 
+    type: 'sequence', 
+    images: [
+      { stage: 'Before', url: 'https://i.imgur.com/QCb1EfL.jpeg' },
+      { stage: 'During', url: 'https://i.imgur.com/3xoFuzv.jpeg' },
+      { stage: 'After', url: 'https://i.imgur.com/yG6gW3P.jpeg' }
+    ] 
+  },
+  { 
+    id: 28, 
+    category: 'Paving', 
+    title: 'Paving & Surface Restoration', 
+    type: 'sequence', 
+    images: [
+      { stage: 'Before', url: 'https://i.imgur.com/OkqTOEV.jpeg' },
+      { stage: 'During', url: 'https://i.imgur.com/7mKgRgs.jpeg' },
+      { stage: 'After', url: 'https://i.imgur.com/5xNSDqH.jpeg' }
     ] 
   }
 ];

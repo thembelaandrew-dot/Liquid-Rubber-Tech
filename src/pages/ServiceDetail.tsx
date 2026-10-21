@@ -7,7 +7,11 @@ import NotFound from './NotFound';
 
 export default function ServiceDetail() {
   const { id } = useParams<{ id: string }>();
-  const service = servicesData.find(s => s.id === id);
+  const service = servicesData.find(s => 
+    s.id === id || 
+    (s.id === 'plumbing' && (id === 'plumbing-and-bathroom-restoration' || id === 'plumbing-bathroom-restoration')) ||
+    (s.id === 'paving' && (id === 'paving-and-concrete-work' || id === 'paving-concrete-work' || id === 'paving-restoration'))
+  );
 
   if (!service) {
     return <NotFound />;

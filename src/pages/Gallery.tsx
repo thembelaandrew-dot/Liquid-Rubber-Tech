@@ -13,10 +13,17 @@ export default function Gallery() {
     'Roof Restoration': 1,
     'Roofing': 1,
     'Waterproofing & Restoration': 2,
+    'Painting & Restoration': 3,
+    'Painting and Restoration': 3,
     'Painting': 3,
     'Epoxy & Flooring': 4,
     'Property Finishing & Renovation': 5,
     'Property Finishing and Renovation': 5,
+    'Plumbing & Bathroom Restoration': 6,
+    'Plumbing and Bathroom Restoration': 6,
+    'Paving': 7,
+    'Paving & Concrete Work': 7,
+    'Paving and Concrete Work': 7,
   };
 
   const categories = [
