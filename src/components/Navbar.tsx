@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Lock } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -48,11 +48,17 @@ export default function Navbar() {
                 <span className={`absolute -bottom-1 left-0 w-full h-[2px] bg-brand-green rounded-full transition-transform duration-300 ${location.pathname === link.path ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
               </Link>
             ))}
+            <Link 
+              to="/admin/gallery" 
+              className="px-3.5 py-2 rounded-full border border-white/10 hover:border-brand-green/40 bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white text-xs font-bold transition-all flex items-center gap-1.5"
+            >
+              <Lock className="w-3.5 h-3.5 text-brand-green" /> Admin Portal
+            </Link>
             <a 
               href="https://wa.me/26876610372?text=Hello%20Liquid%20Rubber%20Tech%20Investments%2C%20I%20would%20like%20to%20request%20a%20quote."
               target="_blank"
               rel="noopener noreferrer"
-              className="ml-4 px-8 py-3 rounded-full bg-brand-green text-black font-bold text-sm hover:bg-brand-blue transition-colors duration-300 glow-green hover:glow-blue"
+              className="ml-2 px-7 py-3 rounded-full bg-brand-green text-black font-bold text-sm hover:bg-brand-blue transition-colors duration-300 glow-green hover:glow-blue"
             >
               GET QUOTE
             </a>
@@ -98,9 +104,22 @@ export default function Navbar() {
                 </motion.div>
               ))}
               <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: navLinks.length * 0.1 }}
+              >
+                <Link
+                  to="/admin/gallery"
+                  className="inline-flex items-center gap-2 text-2xl font-display font-bold text-gray-300 hover:text-brand-green transition-colors py-2 border-b border-white/5 w-full"
+                >
+                  <Lock className="w-5 h-5 text-brand-green" /> Admin Portal
+                </Link>
+              </motion.div>
+
+              <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: navLinks.length * 0.1 }}
+                transition={{ delay: (navLinks.length + 1) * 0.1 }}
                 className="pt-8 mt-auto mb-8 border-t border-white/10"
               >
                 <a 

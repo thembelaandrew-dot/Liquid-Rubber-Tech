@@ -71,8 +71,11 @@ export default function Footer() {
           <p className="text-gray-500 text-xs">
             &copy; {new Date().getFullYear()} Liquid Rubber Tech Investments. All rights reserved.
           </p>
-          <div className="flex gap-6">
+          <div className="flex items-center gap-6">
             <span className="text-brand-green text-xs font-bold tracking-widest uppercase">Restore. Protect. Perform.</span>
+            <Link to="/admin/gallery" className="text-gray-600 hover:text-gray-400 text-xs transition-colors">
+              Staff Portal
+            </Link>
           </div>
         </div>
       </div>

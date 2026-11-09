@@ -1,13 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { galleryData, GalleryProject } from '../data';
+import { fetchPublishedProjects } from '../lib/supabase';
+import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
-import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight, Lock } from 'lucide-react';
 
 export default function Gallery() {
   const [filter, setFilter] = useState('All');
   const [selectedProject, setSelectedProject] = useState<GalleryProject | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [cloudProjects, setCloudProjects] = useState<GalleryProject[]>([]);
+  const [isLoadingCloud, setIsLoadingCloud] = useState(false);
+
+  useEffect(() => {
+    let isMounted = true;
+    setIsLoadingCloud(true);
+    fetchPublishedProjects()
+      .then((projects) => {
+        if (isMounted && projects.length > 0) {
+          setCloudProjects(projects);
+        }
+      })
+      .catch((err) => {
+        console.warn('Could not fetch cloud gallery projects:', err);
+      })
+      .finally(() => {
+        if (isMounted) setIsLoadingCloud(false);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  // Merge dynamic projects from Supabase with existing static projects (deduplicated by ID)
+  const combinedData = useMemo(() => {
+    if (cloudProjects.length === 0) return galleryData;
+    const cloudIds = new Set(cloudProjects.map(p => String(p.id)));
+    const uniqueStatic = galleryData.filter(p => !cloudIds.has(String(p.id)));
+    // Place newly uploaded cloud projects first
+    return [...cloudProjects, ...uniqueStatic];
+  }, [cloudProjects]);
 
   const categoryOrder: Record<string, number> = {
     'Roof Restoration': 1,
@@ -26,24 +60,26 @@ export default function Gallery() {
     'Paving and Concrete Work': 7,
   };
 
-  const categories = [
+  const categories = useMemo(() => [
     'All',
-    ...Array.from(new Set(galleryData.map(item => item.category)))
-      .sort((a, b) => (categoryOrder[a] || 99) - (categoryOrder[b] || 99))
-  ];
+    ...Array.from(new Set(combinedData.map(item => item.category)))
+      .sort((a: string, b: string) => (categoryOrder[a] || 99) - (categoryOrder[b] || 99))
+  ], [combinedData]);
   
   // Sort items: Group by category (if 'All'), then put 'single' before 'sequence'
-  const filteredData = galleryData
-    .filter(item => filter === 'All' || item.category === filter)
-    .sort((a, b) => {
-      if (filter === 'All' && a.category !== b.category) {
-        return (categoryOrder[a.category] || 99) - (categoryOrder[b.category] || 99);
-      }
-      if (a.type !== b.type) {
-        return a.type === 'single' ? -1 : 1;
-      }
-      return 0;
-    });
+  const filteredData = useMemo(() => {
+    return combinedData
+      .filter(item => filter === 'All' || item.category === filter)
+      .sort((a, b) => {
+        if (filter === 'All' && a.category !== b.category) {
+          return (categoryOrder[a.category] || 99) - (categoryOrder[b.category] || 99);
+        }
+        if (a.type !== b.type) {
+          return a.type === 'single' ? -1 : 1;
+        }
+        return 0;
+      });
+  }, [combinedData, filter]);
 
   const openModal = (project: GalleryProject) => {
     setSelectedProject(project);
@@ -131,6 +167,20 @@ export default function Gallery() {
             >
               Take a look at some of our recent projects. See our process from start to finish, showcasing our premium finishes and robust construction standards.
             </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15 }}
+              className="mt-6 flex justify-center"
+            >
+              <Link
+                to="/admin/gallery"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 hover:border-brand-green/40 text-xs font-semibold text-gray-300 hover:text-white transition-all shadow-sm group"
+              >
+                <Lock className="w-3.5 h-3.5 text-brand-green group-hover:scale-110 transition-transform" />
+                <span>Gallery Admin Portal &bull; Upload & Manage Projects &rarr;</span>
+              </Link>
+            </motion.div>
           </div>
 
           <motion.div 
@@ -157,7 +207,12 @@ export default function Gallery() {
           <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <AnimatePresence mode="popLayout">
               {filteredData.map((item) => {
-                const coverImage = item.images[item.images.length - 1]; // Use last image (After/Combined) as cover
+                const coverImage = item.images.find(img => img.stage === 'After') 
+                  || item.images.find(img => img.stage === 'Combined') 
+                  || item.images[item.images.length - 1] 
+                  || item.images[0];
+                const displayTitle = item.title?.trim() || item.category;
+
                 return (
                   <motion.div
                     layout
@@ -169,17 +224,19 @@ export default function Gallery() {
                     onClick={() => openModal(item)}
                     className="group relative h-80 rounded-2xl overflow-hidden glass-panel cursor-pointer"
                   >
-                    <img 
-                      src={coverImage.url} 
-                      alt={`${item.title} - ${item.category}`} 
-                      loading="lazy" 
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
-                    />
+                    {coverImage && (
+                      <img 
+                        src={coverImage.url} 
+                        alt={`${displayTitle} - ${item.category}`} 
+                        loading="lazy" 
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                      />
+                    )}
                     <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity"></div>
                     
                     <div className="absolute bottom-6 left-6 right-6">
                       <p className="text-brand-green font-bold text-sm tracking-wider uppercase mb-1">{item.category}</p>
-                      <h3 className="text-xl font-bold text-white mb-2">{item.title}</h3>
+                      <h3 className="text-xl font-bold text-white mb-2">{displayTitle}</h3>
                       {item.type === 'sequence' && (
                         <span className="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-bold text-white">
                           View Progress ({item.images.length} Images)
@@ -272,7 +329,9 @@ export default function Gallery() {
               {/* Project Info Area */}
               <div className="w-full md:w-1/3 p-8 flex flex-col">
                 <p className="text-brand-green font-bold tracking-wider uppercase mb-2">{selectedProject.category}</p>
-                <h2 className="text-3xl font-display font-bold text-white mb-6">{selectedProject.title}</h2>
+                <h2 className="text-3xl font-display font-bold text-white mb-6">
+                  {selectedProject.title?.trim() || selectedProject.category}
+                </h2>
                 
                 {selectedProject.type === 'sequence' && (
                   <div className="flex-grow">

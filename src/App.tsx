@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { useEffect, lazy, Suspense } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import Layout from './components/Layout';
@@ -11,6 +11,8 @@ const ServiceDetail = lazy(() => import('./pages/ServiceDetail'));
 const Gallery = lazy(() => import('./pages/Gallery'));
 const Contact = lazy(() => import('./pages/Contact'));
 const NotFound = lazy(() => import('./pages/NotFound'));
+const AdminGallery = lazy(() => import('./pages/AdminGallery'));
+const AdminResetPassword = lazy(() => import('./pages/AdminResetPassword'));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -33,6 +35,21 @@ export default function App() {
       <Router>
         <ScrollToTop />
         <Routes>
+          {/* Admin routes without marketing header clutter */}
+          <Route path="/admin" element={<Navigate to="/admin/gallery" replace />} />
+          <Route path="/admin/gallery" element={
+            <Suspense fallback={<PageLoader />}>
+              <AdminGallery />
+            </Suspense>
+          } />
+          <Route path="/admin/update-password" element={
+            <Suspense fallback={<PageLoader />}>
+              <AdminResetPassword />
+            </Suspense>
+          } />
+          <Route path="/admin/reset-password" element={<Navigate to="/admin/update-password" replace />} />
+
+          {/* Public marketing pages */}
           <Route path="/" element={<Layout />}>
             <Route index element={
               <Suspense fallback={<PageLoader />}>

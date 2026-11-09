@@ -146,7 +146,7 @@ export const servicesData = [
 ];
 
 export interface GalleryProject {
-  id: number;
+  id: number | string;
   category: string;
   title: string;
   type: 'sequence' | 'single';
