@@ -81,9 +81,13 @@ export function getSupabaseConfig(): { url: string; anonKey: string } {
   const localUrl = typeof window !== 'undefined' ? localStorage.getItem('lrt_supabase_url') || '' : '';
   const localKey = typeof window !== 'undefined' ? localStorage.getItem('lrt_supabase_key') || '' : '';
 
+  const rawUrl = (envUrl || localUrl || '').trim();
+  const cleanUrl = rawUrl.replace(/\/+$/, '');
+  const cleanKey = (envKey || localKey || '').trim();
+
   return {
-    url: envUrl || localUrl,
-    anonKey: envKey || localKey,
+    url: cleanUrl,
+    anonKey: cleanKey,
   };
 }
 
@@ -493,7 +497,8 @@ export async function uploadImageFile(file: File, path: string): Promise<{ publi
     .from('gallery-images')
     .upload(path, file, {
       cacheControl: '3600',
-      upsert: true,
+      contentType: file.type,
+      upsert: false,
     });
 
   if (uploadError) {
