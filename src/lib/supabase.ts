@@ -14,13 +14,54 @@ export const ALLOWED_CATEGORIES = [
 
 export type AllowedCategory = typeof ALLOWED_CATEGORIES[number];
 
-// Authorized Administrator UUID enforced in supabase-schema.sql RLS policies
-export const AUTHORIZED_ADMIN_UUID = '55acb5d8-b8ff-447a-b09d-33bf621bceca';
+// Authorized Administrator UUIDs
+export const MAINTAINER_ADMIN_UUID = '55acb5d8-b8ff-447a-b09d-33bf621bceca'; // Thembela Andrew (Technical Maintainer & Developer)
+export const CLIENT_ADMIN_UUID = '1e0b310c-dd9a-4c35-a120-b1dcc5f77b23';     // Liquid Rubber Tech Client Administrator
 
-// Whitelist of authorized administrator UUIDs (enables adding future client admin accounts)
+// Backward compatibility export for single-UUID references
+export const AUTHORIZED_ADMIN_UUID = MAINTAINER_ADMIN_UUID;
+
+// Whitelist of authorized administrator UUIDs (both maintainer and client admin)
 export const AUTHORIZED_ADMIN_UUIDS: readonly string[] = [
-  '55acb5d8-b8ff-447a-b09d-33bf621bceca', // Thembela Andrew (Technical Maintainer & Developer)
+  MAINTAINER_ADMIN_UUID, // Thembela Andrew (Technical Maintainer & Developer)
+  CLIENT_ADMIN_UUID,     // Liquid Rubber Tech Client Administrator
 ];
+
+export interface AdminRoleInfo {
+  name: string;
+  role: string;
+  initials: string;
+  isClient: boolean;
+  isMaintainer: boolean;
+}
+
+export function getAdminRoleInfo(userId?: string | null): AdminRoleInfo {
+  if (userId === CLIENT_ADMIN_UUID) {
+    return {
+      name: 'Liquid Rubber Tech',
+      role: 'Administrator',
+      initials: 'LRT',
+      isClient: true,
+      isMaintainer: false,
+    };
+  }
+  if (userId === MAINTAINER_ADMIN_UUID) {
+    return {
+      name: 'Thembela Andrew',
+      role: 'Technical Maintainer & Developer',
+      initials: 'TA',
+      isClient: false,
+      isMaintainer: true,
+    };
+  }
+  return {
+    name: 'Administrator',
+    role: 'Authorized Administrator',
+    initials: 'LRT',
+    isClient: false,
+    isMaintainer: false,
+  };
+}
 
 export function isAuthorizedAdmin(userId?: string | null): boolean {
   if (!userId) return false;
@@ -278,15 +319,16 @@ export async function testSupabaseConnection(): Promise<ConnectionDiagnostics> {
     const { data: authData, error: authErr } = await supabase.auth.getUser();
     if (authErr || !authData?.user) {
       authStatus = 'unauthenticated';
-      authMessage = 'Unauthenticated (Anon mode). RLS policies require signing in as administrator UUID 55acb5d8-b8ff-447a-b09d-33bf621bceca to insert/edit/delete.';
+      authMessage = 'Unauthenticated (Anon mode). RLS policies require signing in with an authorized administrator account to insert/edit/delete.';
     } else {
       authStatus = 'authenticated';
       authUserEmail = authData.user.email;
       authUserId = authData.user.id;
-      isAuthorizedAdmin = authData.user.id === AUTHORIZED_ADMIN_UUID;
+      isAuthorizedAdmin = AUTHORIZED_ADMIN_UUIDS.includes(authData.user.id);
+      const role = getAdminRoleInfo(authData.user.id);
       authMessage = isAuthorizedAdmin
-        ? `Authenticated as administrator (${authData.user.email}). Matches authorized UUID: ${AUTHORIZED_ADMIN_UUID}`
-        : `Authenticated as ${authData.user.email} (${authData.user.id}), but database RLS policy requires UUID ${AUTHORIZED_ADMIN_UUID}.`;
+        ? `Authenticated as ${role.name} (${role.role} - ${authData.user.email}). Matches authorized administrator UUID.`
+        : `Authenticated as ${authData.user.email} (${authData.user.id}), but database requires an authorized administrator UUID (${AUTHORIZED_ADMIN_UUIDS.join(', ')}).`;
     }
   } catch (err: any) {
     authStatus = 'error';
@@ -602,7 +644,7 @@ export async function createAndSaveProject(payload: SaveProjectPayload): Promise
       savedToSupabase: false,
       isPublished: payload.isPublished,
       message: '',
-      error: `Access Denied: The authenticated account (${user.email}) has user ID ${user.id}, which is not an authorized administrator for Liquid Rubber Tech. Required UUID: ${AUTHORIZED_ADMIN_UUID}.`,
+      error: `Access Denied: The authenticated account (${user.email}) has user ID ${user.id}, which is not an authorized administrator for Liquid Rubber Tech.`,
     };
   }
 
@@ -651,7 +693,7 @@ export async function createAndSaveProject(payload: SaveProjectPayload): Promise
     if (projErr) {
       const isRlsError = projErr.code === '42501' || projErr.message?.toLowerCase().includes('row-level security');
       const rlsHint = isRlsError
-        ? ` — Row Level Security violation: Current authenticated UID (${user.id}) does not match authorized admin UUID (${AUTHORIZED_ADMIN_UUID}).`
+        ? ` — Row Level Security violation: Current authenticated UID (${user.id}) is not among the authorized administrator accounts.`
         : '';
       return {
         success: false,

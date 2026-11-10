@@ -34,7 +34,12 @@ import {
   Save,
   ArrowLeft,
   KeyRound,
-  Send
+  Send,
+  Sparkles,
+  PlayCircle,
+  HelpCircle,
+  Info,
+  Compass
 } from 'lucide-react';
 import SEO from '../components/SEO';
 import { galleryData, GalleryProject } from '../data';
@@ -42,6 +47,11 @@ import {
   ALLOWED_CATEGORIES, 
   AllowedCategory, 
   AUTHORIZED_ADMIN_UUID,
+  AUTHORIZED_ADMIN_UUIDS,
+  MAINTAINER_ADMIN_UUID,
+  CLIENT_ADMIN_UUID,
+  getAdminRoleInfo,
+  AdminRoleInfo,
   isAuthorizedAdmin,
   getSupabaseConfig, 
   saveManualSupabaseConfig, 
@@ -79,16 +89,9 @@ export interface AdminProject {
   }[];
 }
 
-// Convert existing static gallery projects to rich dashboard demonstration data
-function initializeDemoProjects(): AdminProject[] {
-  const dates = [
-    '2026-11-04', '2026-11-02', '2026-10-28', '2026-10-24',
-    '2026-10-18', '2026-10-12', '2026-10-05', '2026-09-29',
-    '2026-09-22', '2026-09-15', '2026-09-08', '2026-09-01',
-    '2026-08-25', '2026-08-18', '2026-08-10', '2026-08-03'
-  ];
-
-  return galleryData.map((p, idx) => {
+// Convert existing static gallery projects to clean dashboard project representations
+function loadStaticGalleryProjects(): AdminProject[] {
+  return galleryData.map((p) => {
     let cat: AllowedCategory = 'Roof Restoration';
     if (ALLOWED_CATEGORIES.includes(p.category as AllowedCategory)) {
       cat = p.category as AllowedCategory;
@@ -108,17 +111,14 @@ function initializeDemoProjects(): AdminProject[] {
       cat = 'Property Finishing & Renovation';
     }
 
-    // Set 4 projects as drafts for realistic visual statistics & filter testing
-    const isDraft = idx === 4 || idx === 11 || idx === 17 || idx === 22;
-
     return {
       id: String(p.id),
       title: p.title,
       category: cat,
       display_type: p.type,
-      is_published: !isDraft,
-      created_at: dates[idx % dates.length],
-      views: 120 + ((idx * 37) % 450),
+      is_published: true,
+      created_at: '2026-10-15',
+      views: 0,
       images: p.images.map((img, imgIdx) => ({
         id: `${p.id}-${imgIdx}`,
         stage: img.stage,
@@ -140,27 +140,127 @@ const CATEGORY_COLORS: Record<AllowedCategory, { hex: string; bg: string; text: 
   'Paving': { hex: '#94A3B8', bg: 'bg-slate-500/10', text: 'text-slate-300', border: 'border-slate-500/30' },
 };
 
+// 8-Step Interactive SaaS Onboarding Tour Step Definitions
+export interface TourStep {
+  id: number;
+  title: string;
+  badge: string;
+  targetId?: string;
+  requiredTab: 'overview' | 'projects' | 'add' | 'categories' | 'settings';
+  description: string;
+  tip?: string;
+  placement?: 'bottom' | 'top' | 'center';
+}
+
+export const ONBOARDING_TOUR_STEPS: TourStep[] = [
+  {
+    id: 1,
+    title: 'Welcome to Your Gallery Dashboard',
+    badge: 'Step 1 of 8 • Introduction',
+    requiredTab: 'overview',
+    targetId: 'tour-overview-header',
+    placement: 'center',
+    description: 'Welcome to Your Gallery Dashboard. This dashboard allows you to manage project photographs and update the public website portfolio without needing technical assistance for every upload.',
+    tip: 'Everything published here reflects live on your website at liquidrubbertech.co.za.',
+  },
+  {
+    id: 2,
+    title: 'Add New Project',
+    badge: 'Step 2 of 8 • Getting Started',
+    requiredTab: 'overview',
+    targetId: 'tour-new-project-btn',
+    placement: 'bottom',
+    description: 'Highlight the Add New Project control. Click "New Project" in the top bar or navigation to begin adding a new project showcase to your portfolio.',
+    tip: 'Both single showcase photographs and multi-stage transformation sequences are fully supported.',
+  },
+  {
+    id: 3,
+    title: 'Choose an Approved Service Category',
+    badge: 'Step 3 of 8 • Classification',
+    requiredTab: 'add',
+    targetId: 'tour-category-select',
+    placement: 'bottom',
+    description: 'Assign each project to one of Liquid Rubber Tech\'s 7 official categories: 1. Roof Restoration, 2. Waterproofing & Restoration, 3. Painting & Restoration, 4. Epoxy & Flooring, 5. Property Finishing & Renovation, 6. Plumbing & Bathroom Restoration, or 7. Paving.',
+    tip: 'Project title is optional: if left empty, the project automatically displays as the selected category name!',
+  },
+  {
+    id: 4,
+    title: 'Upload Photographs',
+    badge: 'Step 4 of 8 • Visual Proof',
+    requiredTab: 'add',
+    targetId: 'tour-photo-upload',
+    placement: 'top',
+    description: 'Upload high-resolution photographs to document your work. For transformation sequences, organize photos into Before, During (optional), and After stages to visually demonstrate your workmanship.',
+    tip: 'Supported formats: JPG, PNG, and WebP (up to 10MB per photograph).',
+  },
+  {
+    id: 5,
+    title: 'Save as Draft',
+    badge: 'Step 5 of 8 • Private Drafts',
+    requiredTab: 'add',
+    targetId: 'tour-btn-draft',
+    placement: 'top',
+    description: 'Still on-site or waiting for final review? Click "Save as Draft" to store your work safely in your private dashboard without immediately publishing to the public gallery.',
+    tip: 'Drafts remain private to administrators and can be published whenever you are ready.',
+  },
+  {
+    id: 6,
+    title: 'Publish to Live',
+    badge: 'Step 6 of 8 • Live Publishing',
+    requiredTab: 'add',
+    targetId: 'tour-btn-publish',
+    placement: 'top',
+    description: 'When your project is ready, click "Publish to Live Gallery". The project and photographs will instantly appear on the public website at liquidrubbertech.co.za/gallery for potential clients to see.',
+    tip: 'Published projects immediately benefit from automatic optimization and SEO formatting.',
+  },
+  {
+    id: 7,
+    title: 'Manage Existing Projects',
+    badge: 'Step 7 of 8 • Full Control',
+    requiredTab: 'projects',
+    targetId: 'tour-projects-management',
+    placement: 'bottom',
+    description: 'In the Gallery Projects tab, you can search, filter, edit project titles, toggle publication status, or delete existing projects. Please note that deleting a project may be permanent.',
+    tip: 'Filter by any of the 7 categories or search by keyword to quickly find specific past jobs.',
+  },
+  {
+    id: 8,
+    title: 'Ready to Manage Gallery',
+    badge: 'Step 8 of 8 • Ready to Go',
+    requiredTab: 'overview',
+    placement: 'center',
+    description: 'You are all set! You are now ready to manage Liquid Rubber Tech\'s project gallery. If you ever need a refresher, select "Replay Guided Tour" at any time from the Settings section.',
+    tip: 'Need help? Switch to the Settings tab to inspect database connections, view administrator accounts, or replay this guide.',
+  },
+];
+
 export default function AdminGallery() {
   // Navigation active tab
   const [currentTab, setCurrentTab] = useState<'overview' | 'projects' | 'add' | 'categories' | 'settings'>('overview');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Onboarding Tour State
+  const [isTourActive, setIsTourActive] = useState(false);
+  const [tourStepIndex, setTourStepIndex] = useState(0);
+  const [showTourWelcomeModal, setShowTourWelcomeModal] = useState(false);
+  const [spotlightRect, setSpotlightRect] = useState<DOMRect | null>(null);
 
   // Connection settings state
   const [supabaseUrl, setSupabaseUrl] = useState(getSupabaseConfig().url);
   const [supabaseKey, setSupabaseKey] = useState(getSupabaseConfig().anonKey);
   const [configSavedNotice, setConfigSavedNotice] = useState('');
 
-  // Projects State
+  // Projects State (Real gallery projects from Supabase & static portfolio)
   const [projects, setProjects] = useState<AdminProject[]>(() => {
     const saved = localStorage.getItem('lrt_demo_projects');
     if (saved) {
       try {
         return JSON.parse(saved);
       } catch (e) {
-        return initializeDemoProjects();
+        return loadStaticGalleryProjects();
       }
     }
-    return initializeDemoProjects();
+    return loadStaticGalleryProjects();
   });
 
   // Save to local storage whenever projects change
@@ -171,10 +271,9 @@ export default function AdminGallery() {
   // Supabase Authentication & Admin Session State
   const [authChecking, setAuthChecking] = useState(true);
   const [adminUser, setAdminUser] = useState<any | null>(null);
-  const [isDemoMode, setIsDemoMode] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [loginModalView, setLoginModalView] = useState<'login' | 'forgot_password'>('login');
-  const [loginEmail, setLoginEmail] = useState('thembelaandrew@gmail.com');
+  const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loginLoading, setLoginLoading] = useState(false);
@@ -191,7 +290,7 @@ export default function AdminGallery() {
   };
 
   // Password Recovery Flow State
-  const [forgotEmail, setForgotEmail] = useState('thembelaandrew@gmail.com');
+  const [forgotEmail, setForgotEmail] = useState('');
   const [forgotLoading, setForgotLoading] = useState(false);
   const [forgotSuccess, setForgotSuccess] = useState('');
   const [forgotError, setForgotError] = useState('');
@@ -326,18 +425,167 @@ export default function AdminGallery() {
       if (!isAuthorizedAdmin(res.user.id)) {
         await signOutAdmin();
         setAdminUser(null);
-        setLoginError(`Access Denied: The authenticated account (${res.user.email}) has UUID ${res.user.id}, which is not the authorized administrator for Liquid Rubber Tech. Required UUID: ${AUTHORIZED_ADMIN_UUID}`);
+        setLoginError(`Access Denied: The authenticated account (${res.user.email}) is not an authorized administrator for Liquid Rubber Tech.`);
         return;
       }
       setAdminUser(res.user);
-      setIsDemoMode(false);
       setShowLoginModal(false);
       setLoginPassword('');
-      showToast('Welcome, Thembela Andrew. Authenticated with Supabase RLS.', 'success');
+      const role = getAdminRoleInfo(res.user.id);
+      showToast(`Welcome, ${role.name}. Authenticated with Supabase RLS.`, 'success');
       loadFromSupabase();
     } else {
       setLoginError(res.error || 'Authentication failed. Please verify credentials.');
     }
+  };
+
+  // Helper for per-administrator tour persistence
+  const getTourStorageKey = (userId?: string | null) => {
+    return userId ? `lrt_tour_completed_${userId}` : 'lrt_tour_completed_preview';
+  };
+
+  // Check if tour has been completed by the current administrator
+  useEffect(() => {
+    if (authChecking) return;
+    const storageKey = getTourStorageKey(adminUser?.id);
+    const completed = localStorage.getItem(storageKey);
+    if (!completed && !isTourActive) {
+      const timer = setTimeout(() => {
+        setShowTourWelcomeModal(true);
+      }, 700);
+      return () => clearTimeout(timer);
+    }
+  }, [authChecking, adminUser?.id]);
+
+  const handleStartTour = (fromSettings = false) => {
+    setShowTourWelcomeModal(false);
+    setTourStepIndex(0);
+    if (currentTab !== 'overview') {
+      setCurrentTab('overview');
+    }
+    setIsTourActive(true);
+    if (fromSettings) {
+      showToast('Restarting Guided Onboarding Tour...', 'info');
+    }
+  };
+
+  const handleCompleteTour = () => {
+    const storageKey = getTourStorageKey(adminUser?.id);
+    localStorage.setItem(storageKey, 'true');
+    setIsTourActive(false);
+    setSpotlightRect(null);
+    showToast('Guided tour completed! You can replay it anytime from Settings.', 'success');
+  };
+
+  const handleSkipTour = () => {
+    const storageKey = getTourStorageKey(adminUser?.id);
+    localStorage.setItem(storageKey, 'true');
+    setIsTourActive(false);
+    setShowTourWelcomeModal(false);
+    setSpotlightRect(null);
+  };
+
+  const handleNextTourStep = () => {
+    if (tourStepIndex < ONBOARDING_TOUR_STEPS.length - 1) {
+      const nextIdx = tourStepIndex + 1;
+      setTourStepIndex(nextIdx);
+      const nextStep = ONBOARDING_TOUR_STEPS[nextIdx];
+      if (currentTab !== nextStep.requiredTab) {
+        setCurrentTab(nextStep.requiredTab);
+      }
+    } else {
+      handleCompleteTour();
+    }
+  };
+
+  const handlePrevTourStep = () => {
+    if (tourStepIndex > 0) {
+      const prevIdx = tourStepIndex - 1;
+      setTourStepIndex(prevIdx);
+      const prevStep = ONBOARDING_TOUR_STEPS[prevIdx];
+      if (currentTab !== prevStep.requiredTab) {
+        setCurrentTab(prevStep.requiredTab);
+      }
+    }
+  };
+
+  // Update spotlight rect when step changes or window resizes
+  useEffect(() => {
+    if (!isTourActive) return;
+
+    const currentStep = ONBOARDING_TOUR_STEPS[tourStepIndex];
+    if (!currentStep.targetId) {
+      setSpotlightRect(null);
+      return;
+    }
+
+    const updateRect = () => {
+      const el = document.getElementById(currentStep.targetId!);
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        setSpotlightRect(rect);
+        el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      } else {
+        setSpotlightRect(null);
+      }
+    };
+
+    const timer = setTimeout(updateRect, 180);
+    window.addEventListener('resize', updateRect);
+    window.addEventListener('scroll', updateRect, true);
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('resize', updateRect);
+      window.removeEventListener('scroll', updateRect, true);
+    };
+  }, [isTourActive, tourStepIndex, currentTab]);
+
+  // Keyboard navigation for tour
+  useEffect(() => {
+    if (!isTourActive) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        handleSkipTour();
+      } else if (e.key === 'ArrowRight') {
+        handleNextTourStep();
+      } else if (e.key === 'ArrowLeft') {
+        handlePrevTourStep();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isTourActive, tourStepIndex]);
+
+  const getTooltipStyle = (rect: DOMRect | null, placement?: 'bottom' | 'top' | 'center'): React.CSSProperties => {
+    if (!rect || placement === 'center' || typeof window === 'undefined' || window.innerWidth < 768) {
+      return {
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+      };
+    }
+
+    const tooltipWidth = 420;
+    const padding = 16;
+    let left = Math.max(padding, rect.left + rect.width / 2 - tooltipWidth / 2);
+    if (left + tooltipWidth > window.innerWidth - padding) {
+      left = window.innerWidth - tooltipWidth - padding;
+    }
+
+    if (placement === 'top') {
+      const top = Math.max(padding, rect.top - 360);
+      return { top: `${top}px`, left: `${left}px` };
+    }
+
+    // Default 'bottom'
+    let top = rect.bottom + 16;
+    if (top + 340 > window.innerHeight) {
+      top = Math.max(padding, rect.top - 350);
+    }
+    return { top: `${top}px`, left: `${left}px` };
   };
 
   // Auth Handler: Send Password Recovery Email
@@ -362,7 +610,6 @@ export default function AdminGallery() {
   const handleAdminLogout = async () => {
     await signOutAdmin();
     setAdminUser(null);
-    setIsDemoMode(false);
     showToast('Signed out of Liquid Rubber Tech administrator session.', 'info');
   };
 
@@ -775,12 +1022,14 @@ export default function AdminGallery() {
     showToast('Project removed successfully from gallery.', 'info');
   };
 
-  // --- HANDLER: RESET DEMO DATA ---
-  const handleResetData = () => {
-    const defaults = initializeDemoProjects();
-    setProjects(defaults);
-    localStorage.setItem('lrt_demo_projects', JSON.stringify(defaults));
-    showToast('Local preview data reset to default 28 gallery projects.', 'info');
+  // --- HANDLER: SYNC DATABASE ---
+  const handleSyncDatabase = async () => {
+    try {
+      await loadFromSupabase();
+      showToast('Synchronized gallery projects with live Supabase database.', 'success');
+    } catch {
+      showToast('Failed to synchronize with Supabase database.', 'error');
+    }
   };
 
   if (authChecking) {
@@ -799,7 +1048,7 @@ export default function AdminGallery() {
     );
   }
 
-  if (!adminUser && !isDemoMode) {
+  if (!adminUser) {
     return (
       <div className="min-h-screen bg-[#080808] text-gray-100 flex flex-col justify-center items-center px-4 py-12 relative overflow-hidden font-sans">
         <SEO 
@@ -860,7 +1109,7 @@ export default function AdminGallery() {
                       type="email"
                       value={loginEmail}
                       onChange={(e) => setLoginEmail(e.target.value)}
-                      placeholder="thembelaandrew@gmail.com"
+                      placeholder="admin@liquidrubbertech.co.za"
                       className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white text-xs focus:outline-none focus:border-brand-green"
                       required
                       autoComplete="username"
@@ -907,11 +1156,11 @@ export default function AdminGallery() {
                     </div>
                   </div>
 
-                  {/* Target UUID Badge */}
+                  {/* Access Control Badge */}
                   <div className="p-2.5 rounded-xl bg-black/40 border border-white/5 flex items-center justify-between text-[11px]">
-                    <span className="text-gray-400 text-[10px]">Authorized Admin UUID:</span>
+                    <span className="text-gray-400 text-[10px]">Access Control:</span>
                     <span className="font-mono text-[10px] text-brand-green font-bold">
-                      {AUTHORIZED_ADMIN_UUID.slice(0, 12)}...
+                      Dual Authorized Administrators
                     </span>
                   </div>
 
@@ -964,7 +1213,7 @@ export default function AdminGallery() {
                         type="email"
                         value={forgotEmail}
                         onChange={(e) => setForgotEmail(e.target.value)}
-                        placeholder="thembelaandrew@gmail.com"
+                        placeholder="admin@liquidrubbertech.co.za"
                         className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white text-xs focus:outline-none focus:border-brand-green"
                         required
                         autoFocus
@@ -1018,7 +1267,7 @@ export default function AdminGallery() {
             )}
 
             {/* Bottom Actions */}
-            <div className="pt-4 border-t border-white/10 flex items-center justify-between text-xs">
+            <div className="pt-4 border-t border-white/10 flex items-center justify-center text-xs">
               <Link
                 to="/"
                 className="text-gray-400 hover:text-white flex items-center gap-1.5 transition-colors"
@@ -1026,17 +1275,6 @@ export default function AdminGallery() {
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Return to Website</span>
               </Link>
-
-              <button
-                type="button"
-                onClick={() => {
-                  setIsDemoMode(true);
-                  showToast('Entered Dashboard Preview (Read-Only Demo Mode).', 'info');
-                }}
-                className="text-[11px] text-gray-400 hover:text-brand-green underline transition-colors"
-              >
-                Preview Dashboard (Demo Mode)
-              </button>
             </div>
           </div>
         </div>
@@ -1051,27 +1289,6 @@ export default function AdminGallery() {
         description="Liquid Rubber Tech project gallery dashboard for managing commercial and residential waterproofing, roofing, and property restoration projects."
         url="https://liquidrubbertech.co.za/admin/gallery"
       />
-
-      {/* Demo Mode Notice Banner */}
-      {isDemoMode && (
-        <div className="bg-yellow-400/10 border-b border-yellow-400/30 px-4 py-2.5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-yellow-300">
-          <div className="flex items-center gap-2">
-            <AlertCircle className="w-4 h-4 shrink-0 text-yellow-400" />
-            <span>
-              <strong>Demo Preview Mode (Read-Only):</strong> You are inspecting the dashboard layout. Database write operations require signing in with your administrator account.
-            </span>
-          </div>
-          <button
-            onClick={() => {
-              setIsDemoMode(false);
-              setShowLoginModal(true);
-            }}
-            className="px-3 py-1 rounded-lg bg-yellow-400 text-black font-bold text-xs hover:bg-yellow-300 transition-colors shrink-0"
-          >
-            Sign In as Administrator
-          </button>
-        </div>
-      )}
 
       {/* ==============================================================
           TOP ADMIN APPLICATION HEADER
@@ -1118,11 +1335,22 @@ export default function AdminGallery() {
         <div className="flex items-center gap-3">
           {/* Quick Action: New Project */}
           <button
+            id="tour-new-project-btn"
             onClick={() => setCurrentTab('add')}
-            className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-brand-green text-black font-bold text-xs hover:bg-brand-blue transition-all duration-200 shadow-sm"
+            className="inline-flex items-center gap-1.5 px-2.5 sm:px-3.5 py-1.5 rounded-lg bg-brand-green text-black font-bold text-xs hover:bg-brand-blue transition-all duration-200 shadow-sm"
           >
             <PlusCircle className="w-3.5 h-3.5" />
             <span>New Project</span>
+          </button>
+
+          {/* Quick Tour Launcher */}
+          <button
+            onClick={() => handleStartTour(true)}
+            className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white text-xs font-medium border border-white/10 transition-colors"
+            title="Launch interactive guided tour"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-brand-green" />
+            <span className="hidden xl:inline">Guided Tour</span>
           </button>
 
           {/* View Live Public Gallery Link */}
@@ -1138,27 +1366,38 @@ export default function AdminGallery() {
             <ExternalLink className="w-3 h-3 text-gray-500" />
           </Link>
 
-          {/* Technical Maintainer Profile Badge (Explicitly developer identity, not owner) */}
-          <div className="flex items-center gap-2 pl-2 border-l border-white/10">
-            <div className="w-8 h-8 rounded-full bg-brand-blue/20 border border-brand-blue/40 flex items-center justify-center text-brand-blue font-bold text-xs">
-              TA
-            </div>
-            <div className="hidden lg:block text-left leading-tight">
-              <span className="text-xs font-bold text-white block">Thembela Andrew</span>
-              <span className="text-[10px] text-brand-green">Technical Maintainer & Developer</span>
-            </div>
-          </div>
+          {/* Dynamic Administrator Profile Badge (Liquid Rubber Tech vs Technical Maintainer) */}
+          {(() => {
+            const roleInfo = getAdminRoleInfo(adminUser?.id);
+            return (
+              <div className="flex items-center gap-2 pl-2 border-l border-white/10">
+                <div className={`w-8 h-8 rounded-full border flex items-center justify-center font-bold text-xs ${
+                  roleInfo.isClient 
+                    ? 'bg-brand-green/20 border-brand-green/40 text-brand-green' 
+                    : 'bg-brand-blue/20 border-brand-blue/40 text-brand-blue'
+                }`}>
+                  {roleInfo.initials}
+                </div>
+                <div className="hidden lg:block text-left leading-tight">
+                  <span className="text-xs font-bold text-white block">{roleInfo.name}</span>
+                  <span className={`text-[10px] ${roleInfo.isClient ? 'text-brand-green' : 'text-brand-blue'}`}>
+                    {roleInfo.role}
+                  </span>
+                </div>
+              </div>
+            );
+          })()}
 
           {/* Supabase Authentication Status / Button */}
           <div className="flex items-center gap-2 pl-2 border-l border-white/10">
             {adminUser ? (
               <div className="flex items-center gap-2">
                 <span className={`px-2 py-0.5 rounded text-[10px] font-bold font-mono ${
-                  adminUser.id === AUTHORIZED_ADMIN_UUID 
+                  isAuthorizedAdmin(adminUser.id) 
                     ? 'bg-brand-green/10 text-brand-green border border-brand-green/30' 
                     : 'bg-yellow-400/10 text-yellow-400 border border-yellow-400/30'
                 }`}>
-                  {adminUser.id === AUTHORIZED_ADMIN_UUID ? 'Admin Verified' : 'Logged In'}
+                  {isAuthorizedAdmin(adminUser.id) ? 'Admin Verified' : 'Logged In'}
                 </span>
                 <button
                   onClick={handleAdminLogout}
@@ -1290,6 +1529,17 @@ export default function AdminGallery() {
                 </div>
                 <ShieldCheck className="w-3.5 h-3.5 text-brand-blue" />
               </button>
+
+              <button
+                onClick={() => { handleStartTour(true); setMobileMenuOpen(false); }}
+                className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-xs text-gray-300 hover:text-white hover:bg-white/5 transition-all"
+              >
+                <div className="flex items-center gap-3">
+                  <Sparkles className="w-4 h-4 shrink-0 text-brand-green" />
+                  <span>Interactive Tour</span>
+                </div>
+                <span className="text-[10px] text-brand-green font-bold uppercase tracking-wider">Guide</span>
+              </button>
             </nav>
           </div>
 
@@ -1297,16 +1547,18 @@ export default function AdminGallery() {
           <div className="p-4 border-t border-white/10 bg-[#0a0a0a] space-y-3">
             <div className="text-[11px] text-gray-500 leading-tight">
               <span className="font-semibold text-gray-400 block mb-0.5">Liquid Rubber Tech</span>
-              <span>Maintainer Access: Active</span>
-              <span className="block font-mono text-[9px] text-brand-green truncate">55acb5d8-b8ff-447a...</span>
+              <span>{adminUser ? getAdminRoleInfo(adminUser.id).role : 'Administrator Portal'}</span>
+              <span className="block font-mono text-[9px] text-brand-green truncate">
+                {adminUser ? `UID: ${adminUser.id.slice(0, 14)}...` : 'Authorized Access'}
+              </span>
             </div>
 
             <button
-              onClick={handleResetData}
+              onClick={handleSyncDatabase}
               className="w-full py-1.5 px-2 rounded-lg bg-white/5 hover:bg-white/10 text-[11px] text-gray-400 hover:text-white border border-white/10 transition-colors flex items-center justify-center gap-1.5"
             >
               <RefreshCw className="w-3 h-3 text-brand-green" />
-              <span>Reset Sample Projects</span>
+              <span>Sync with Database</span>
             </button>
           </div>
         </aside>
@@ -1330,7 +1582,7 @@ export default function AdminGallery() {
           {currentTab === 'overview' && (
             <div className="space-y-8 max-w-7xl mx-auto">
               {/* Header Title Banner */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/10">
+              <div id="tour-overview-header" className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/10">
                 <div>
                   <h1 className="text-2xl sm:text-3xl font-display font-bold text-white tracking-tight">
                     Liquid Rubber Tech — Gallery Overview
@@ -1733,7 +1985,7 @@ export default function AdminGallery() {
               </div>
 
               {/* SEARCH, CATEGORY & STATUS FILTERS TOOLBAR */}
-              <div className="p-4 rounded-2xl bg-[#121212] border border-white/10 space-y-3">
+              <div id="tour-projects-management" className="p-4 rounded-2xl bg-[#121212] border border-white/10 space-y-3">
                 <div className="grid grid-cols-1 sm:grid-cols-12 gap-3">
                   
                   {/* Search Input (5 cols) */}
@@ -2223,7 +2475,7 @@ export default function AdminGallery() {
                 </div>
 
                 {/* 2. Category Dropdown (Exact 7 Categories) */}
-                <div>
+                <div id="tour-category-select">
                   <label className="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-2">
                     Category <span className="text-brand-green">* Required</span>
                   </label>
@@ -2285,7 +2537,7 @@ export default function AdminGallery() {
                 </div>
 
                 {/* 4. Image Upload Area */}
-                <div className="pt-4 border-t border-white/10">
+                <div id="tour-photo-upload" className="pt-4 border-t border-white/10">
                   <div className="flex items-center justify-between mb-3">
                     <div>
                       <h3 className="font-bold text-sm text-white">Upload Photos</h3>
@@ -2528,6 +2780,7 @@ export default function AdminGallery() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {/* BUTTON 1: SAVE AS DRAFT */}
                     <button
+                      id="tour-btn-draft"
                       type="button"
                       disabled={isUploading}
                       onClick={() => handleProjectSubmit(false)}
@@ -2548,6 +2801,7 @@ export default function AdminGallery() {
 
                     {/* BUTTON 2: PUBLISH TO LIVE GALLERY */}
                     <button
+                      id="tour-btn-publish"
                       type="button"
                       disabled={isUploading}
                       onClick={() => handleProjectSubmit(true)}
@@ -2663,30 +2917,95 @@ export default function AdminGallery() {
                 </p>
               </div>
 
-              {/* Developer / Maintainer Profile Card */}
+              {/* Guided Onboarding & Interactive Tour Card */}
+              <div className="p-6 rounded-2xl bg-gradient-to-br from-[#141414] to-[#101912] border border-brand-green/30 space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-brand-green/20 text-brand-green border border-brand-green/40 flex items-center justify-center shrink-0">
+                      <Sparkles className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-white text-base">Interactive Guided Onboarding Tour</h3>
+                      <p className="text-xs text-gray-400">Step-by-step walkthrough covering photography stages, categories, and live publishing</p>
+                    </div>
+                  </div>
+                  <button
+                    id="tour-settings-replay"
+                    type="button"
+                    onClick={() => handleStartTour(true)}
+                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-brand-green text-black font-bold text-xs hover:bg-brand-blue transition-all shadow-lg shadow-brand-green/20 self-start sm:self-auto shrink-0"
+                  >
+                    <PlayCircle className="w-4 h-4" />
+                    <span>Replay Guided Tour</span>
+                  </button>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1 text-xs">
+                  <div className="p-3 rounded-xl bg-black/40 border border-white/5">
+                    <span className="text-gray-400 font-bold block mb-0.5">8 Comprehensive Steps</span>
+                    <span className="text-[11px] text-gray-400">Covers categories, upload stages, draft storage, and live updates.</span>
+                  </div>
+                  <div className="p-3 rounded-xl bg-black/40 border border-white/5">
+                    <span className="text-gray-400 font-bold block mb-0.5">Spotlight Highlighting</span>
+                    <span className="text-[11px] text-gray-400">Visually highlights exact buttons and forms in real-time.</span>
+                  </div>
+                  <div className="p-3 rounded-xl bg-black/40 border border-white/5">
+                    <span className="text-gray-400 font-bold block mb-0.5">Per-Administrator Tracking</span>
+                    <span className="text-[11px] text-gray-400">Remembers completion per user so it never intrudes on daily work.</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Authorized Administrator Accounts Card */}
               <div className="p-6 rounded-2xl bg-[#121212] border border-white/10 space-y-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="font-bold text-white text-base">Project Maintainer & Developer Access</h3>
-                    <p className="text-xs text-gray-400">Technical administration for Liquid Rubber Tech</p>
+                    <h3 className="font-bold text-white text-base">Authorized Administrator Accounts</h3>
+                    <p className="text-xs text-gray-400">Dual administrator accounts authorized under database Row-Level Security (RLS)</p>
                   </div>
-                  <span className="px-2.5 py-1 rounded-full bg-brand-blue/10 text-brand-blue border border-brand-blue/30 text-xs font-bold font-mono">
-                    Developer Access
+                  <span className="px-2.5 py-1 rounded-full bg-brand-green/10 text-brand-green border border-brand-green/30 text-xs font-bold font-mono">
+                    2 Accounts Authorized
                   </span>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                  <div className="p-3.5 rounded-xl bg-black/40 border border-white/5">
-                    <span className="text-gray-500 uppercase tracking-wider text-[10px] block font-bold mb-1">Maintainer Email</span>
-                    <span className="text-white font-mono font-semibold">thembelaandrew@gmail.com</span>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                  {/* Account 1: Liquid Rubber Tech Client Admin */}
+                  <div className="p-4 rounded-xl bg-black/40 border border-brand-green/30 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-brand-green font-bold text-xs uppercase tracking-wider">Client Administrator</span>
+                      <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-brand-green/20 text-brand-green">Primary</span>
+                    </div>
+                    <div>
+                      <span className="text-gray-400 text-[10px] block uppercase font-semibold">Account Identity</span>
+                      <span className="text-white font-bold text-sm">Liquid Rubber Tech</span>
+                    </div>
+                    <div>
+                      <span className="text-gray-400 text-[10px] block uppercase font-semibold">Role</span>
+                      <span className="text-brand-green font-medium">Administrator</span>
+                    </div>
+                    <div>
+                      <span className="text-gray-400 text-[10px] block uppercase font-semibold">Authorized UUID</span>
+                      <span className="text-gray-300 font-mono text-[11px] break-all">{CLIENT_ADMIN_UUID}</span>
+                    </div>
                   </div>
-                  <div className="p-3.5 rounded-xl bg-black/40 border border-white/5">
-                    <span className="text-gray-500 uppercase tracking-wider text-[10px] block font-bold mb-1">Role & Responsibility</span>
-                    <span className="text-brand-green font-semibold">Technical Maintainer & Developer</span>
-                  </div>
-                  <div className="col-span-full p-3.5 rounded-xl bg-black/40 border border-white/5">
-                    <span className="text-gray-500 uppercase tracking-wider text-[10px] block font-bold mb-1">Database Policy Authorized UUID</span>
-                    <span className="text-brand-green font-mono text-[11px] break-all">55acb5d8-b8ff-447a-b09d-33bf621bceca</span>
+
+                  {/* Account 2: Technical Maintainer & Developer */}
+                  <div className="p-4 rounded-xl bg-black/40 border border-brand-blue/30 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-brand-blue font-bold text-xs uppercase tracking-wider">Technical Maintainer</span>
+                      <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-brand-blue/20 text-brand-blue">Developer</span>
+                    </div>
+                    <div>
+                      <span className="text-gray-400 text-[10px] block uppercase font-semibold">Developer Name</span>
+                      <span className="text-white font-bold text-sm">Thembela Andrew</span>
+                    </div>
+                    <div>
+                      <span className="text-gray-400 text-[10px] block uppercase font-semibold">Email</span>
+                      <span className="text-gray-300 font-mono text-xs">thembelaandrew@gmail.com</span>
+                    </div>
+                    <div>
+                      <span className="text-gray-400 text-[10px] block uppercase font-semibold">Authorized UUID</span>
+                      <span className="text-gray-300 font-mono text-[11px] break-all">{MAINTAINER_ADMIN_UUID}</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -2779,28 +3098,32 @@ export default function AdminGallery() {
                   </div>
                   <span className={`px-2.5 py-1 rounded-full text-xs font-bold font-mono ${
                     adminUser 
-                      ? adminUser.id === AUTHORIZED_ADMIN_UUID
+                      ? isAuthorizedAdmin(adminUser.id)
                         ? 'bg-brand-green/10 text-brand-green border border-brand-green/30'
                         : 'bg-yellow-400/10 text-yellow-400 border border-yellow-400/30'
                       : 'bg-red-400/10 text-red-400 border border-red-400/30'
                   }`}>
-                    {adminUser ? (adminUser.id === AUTHORIZED_ADMIN_UUID ? 'RLS Authorized' : 'Logged In (UUID mismatch)') : 'Unauthenticated'}
+                    {adminUser ? (isAuthorizedAdmin(adminUser.id) ? 'RLS Authorized' : 'Logged In (Unauthorized UUID)') : 'Unauthenticated'}
                   </span>
                 </div>
 
                 {adminUser ? (
                   <div className="space-y-3 text-xs bg-black/40 p-4 rounded-xl border border-white/5">
                     <div className="flex items-center justify-between">
-                      <span className="text-gray-400">Active Admin Email:</span>
-                      <span className="text-white font-mono font-bold">{adminUser.email}</span>
+                      <span className="text-gray-400">Active Admin:</span>
+                      <span className="text-white font-mono font-bold">
+                        {adminUser.email || getAdminRoleInfo(adminUser.id).name} ({getAdminRoleInfo(adminUser.id).role})
+                      </span>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="text-gray-400">Session User UUID:</span>
                       <span className="text-brand-green font-mono text-[11px]">{adminUser.id}</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-gray-400">RLS Policy Target UUID:</span>
-                      <span className="text-brand-blue font-mono text-[11px]">{AUTHORIZED_ADMIN_UUID}</span>
+                      <span className="text-gray-400">RLS Authorized Status:</span>
+                      <span className="text-brand-blue font-semibold text-[11px]">
+                        {isAuthorizedAdmin(adminUser.id) ? 'Verified Liquid Rubber Tech Admin' : 'Unrecognized Admin UUID'}
+                      </span>
                     </div>
                     <div className="pt-2 flex justify-end">
                       <button
@@ -2829,7 +3152,7 @@ export default function AdminGallery() {
                           type="email"
                           value={loginEmail}
                           onChange={(e) => setLoginEmail(e.target.value)}
-                          placeholder="thembelaandrew@gmail.com"
+                          placeholder="admin@liquidrubbertech.co.za"
                           className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white text-xs focus:outline-none focus:border-brand-green"
                           required
                         />
@@ -2960,17 +3283,18 @@ export default function AdminGallery() {
                 </div>
               </div>
 
-              {/* Reset Prototype Cache */}
+              {/* Synchronize Database */}
               <div className="p-6 rounded-2xl bg-[#121212] border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                  <h4 className="font-bold text-white text-sm">Reset Sample Projects Cache</h4>
-                  <p className="text-xs text-gray-400 mt-0.5">Restores the default showcase projects in local cache.</p>
+                  <h4 className="font-bold text-white text-sm">Synchronize with Database</h4>
+                  <p className="text-xs text-gray-400 mt-0.5">Fetches latest projects and stages directly from live Supabase tables.</p>
                 </div>
                 <button
-                  onClick={handleResetData}
-                  className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs shrink-0"
+                  onClick={handleSyncDatabase}
+                  className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs shrink-0 flex items-center gap-2"
                 >
-                  Reset Local Cache
+                  <RefreshCw className="w-3.5 h-3.5 text-brand-green" />
+                  <span>Sync Projects</span>
                 </button>
               </div>
             </div>
@@ -3291,7 +3615,7 @@ export default function AdminGallery() {
                       type="email"
                       value={loginEmail}
                       onChange={(e) => setLoginEmail(e.target.value)}
-                      placeholder="thembelaandrew@gmail.com"
+                      placeholder="admin@liquidrubbertech.co.za"
                       className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white text-xs focus:outline-none focus:border-brand-green"
                       required
                     />
@@ -3328,7 +3652,7 @@ export default function AdminGallery() {
 
                   <div className="pt-2 flex justify-between items-center">
                     <span className="text-[10px] text-gray-500">
-                      Target UUID: <code className="text-brand-green">{AUTHORIZED_ADMIN_UUID.slice(0, 8)}...</code>
+                      Access: <code className="text-brand-green">Authorized Admins</code>
                     </span>
 
                     <div className="flex gap-2">
@@ -3400,7 +3724,7 @@ export default function AdminGallery() {
                       type="email"
                       value={forgotEmail}
                       onChange={(e) => setForgotEmail(e.target.value)}
-                      placeholder="thembelaandrew@gmail.com"
+                      placeholder="admin@liquidrubbertech.co.za"
                       className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white text-xs focus:outline-none focus:border-brand-green"
                       required
                       autoFocus
@@ -3453,6 +3777,170 @@ export default function AdminGallery() {
                 </form>
               </div>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* ==============================================================
+          INTERACTIVE FIRST-TIME ONBOARDING TOUR SPOTLIGHT OVERLAY
+          ============================================================== */}
+      {isTourActive && (
+        <div className="fixed inset-0 z-50 pointer-events-auto">
+          {/* Dark translucent backdrop */}
+          <div 
+            className="fixed inset-0 bg-black/75 backdrop-blur-[2px] transition-opacity duration-300"
+            onClick={handleSkipTour}
+          />
+
+          {/* Glowing spotlight highlight ring around active element */}
+          {spotlightRect && (
+            <div 
+              className="fixed transition-all duration-300 ease-out pointer-events-none rounded-2xl ring-4 ring-brand-green ring-offset-4 ring-offset-black z-50"
+              style={{
+                top: Math.max(10, spotlightRect.top - 8),
+                left: Math.max(10, spotlightRect.left - 8),
+                width: Math.min(window.innerWidth - 20, spotlightRect.width + 16),
+                height: spotlightRect.height + 16,
+                boxShadow: '0 0 35px rgba(57, 255, 20, 0.45), inset 0 0 15px rgba(57, 255, 20, 0.25)'
+              }}
+            />
+          )}
+
+          {/* Floating Tour Step Card */}
+          <div 
+            className="fixed z-50 w-full max-w-md px-4 pointer-events-auto transition-all duration-300 ease-out"
+            style={getTooltipStyle(spotlightRect, ONBOARDING_TOUR_STEPS[tourStepIndex]?.placement)}
+          >
+            <div className="p-6 rounded-2xl bg-[#141414] border-2 border-brand-green/60 shadow-2xl shadow-brand-green/20 space-y-4">
+              {/* Card Header */}
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-9 h-9 rounded-xl bg-brand-green/20 text-brand-green border border-brand-green/40 flex items-center justify-center font-bold text-xs shrink-0">
+                    <Sparkles className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-brand-green block">
+                      {ONBOARDING_TOUR_STEPS[tourStepIndex].badge}
+                    </span>
+                    <h3 className="font-display font-bold text-white text-base leading-tight">
+                      {ONBOARDING_TOUR_STEPS[tourStepIndex].title}
+                    </h3>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={handleSkipTour}
+                  className="p-1.5 text-gray-400 hover:text-white rounded-lg hover:bg-white/10 transition-colors"
+                  title="Exit Tour"
+                  aria-label="Close tour"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              {/* 8-segment Progress Bar */}
+              <div className="grid grid-cols-8 gap-1.5 py-1">
+                {ONBOARDING_TOUR_STEPS.map((s, idx) => (
+                  <div
+                    key={s.id}
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                      idx === tourStepIndex
+                        ? 'bg-brand-green shadow-sm shadow-brand-green'
+                        : idx < tourStepIndex
+                        ? 'bg-brand-green/60'
+                        : 'bg-white/15'
+                    }`}
+                  />
+                ))}
+              </div>
+
+              {/* Step Explanation */}
+              <p className="text-xs text-gray-300 leading-relaxed">
+                {ONBOARDING_TOUR_STEPS[tourStepIndex].description}
+              </p>
+
+              {/* Helpful Pro Tip */}
+              {ONBOARDING_TOUR_STEPS[tourStepIndex].tip && (
+                <div className="p-3 rounded-xl bg-white/[0.04] border border-white/10 text-[11px] text-gray-300 flex items-start gap-2">
+                  <Info className="w-3.5 h-3.5 text-brand-blue shrink-0 mt-0.5" />
+                  <span className="leading-snug">{ONBOARDING_TOUR_STEPS[tourStepIndex].tip}</span>
+                </div>
+              )}
+
+              {/* Step Action Buttons */}
+              <div className="pt-2 flex items-center justify-between border-t border-white/10">
+                <button
+                  type="button"
+                  onClick={handleSkipTour}
+                  className="text-xs text-gray-400 hover:text-white font-medium hover:underline transition-colors"
+                >
+                  Skip Tour
+                </button>
+
+                <div className="flex items-center gap-2">
+                  {tourStepIndex > 0 && (
+                    <button
+                      type="button"
+                      onClick={handlePrevTourStep}
+                      className="px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs transition-colors"
+                    >
+                      Back
+                    </button>
+                  )}
+
+                  <button
+                    type="button"
+                    onClick={handleNextTourStep}
+                    className="px-4 py-2 rounded-xl bg-brand-green text-black font-bold text-xs hover:bg-brand-blue transition-all shadow-md shadow-brand-green/20 flex items-center gap-1.5"
+                  >
+                    <span>{tourStepIndex === ONBOARDING_TOUR_STEPS.length - 1 ? 'Finish Tour' : 'Next Step'}</span>
+                    <ChevronRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ==============================================================
+          FIRST-TIME WELCOME TOUR PROMPT MODAL
+          ============================================================== */}
+      {showTourWelcomeModal && !isTourActive && (
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="p-6 sm:p-8 rounded-2xl bg-[#141414] border border-brand-green/40 max-w-md w-full relative shadow-2xl space-y-5">
+            <div className="w-12 h-12 rounded-2xl bg-brand-green/10 text-brand-green border border-brand-green/30 flex items-center justify-center">
+              <Sparkles className="w-6 h-6" />
+            </div>
+
+            <div>
+              <span className="text-[11px] font-bold uppercase tracking-wider text-brand-green">
+                Interactive Onboarding
+              </span>
+              <h3 className="text-xl font-display font-bold text-white mt-0.5">
+                Welcome to Your Gallery Dashboard
+              </h3>
+              <p className="text-xs text-gray-400 mt-2 leading-relaxed">
+                Take a fast 1-minute interactive tour showing you how to upload photographs, select official categories, save private drafts, and publish directly to liquidrubbertech.co.za.
+              </p>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-2.5 pt-2">
+              <button
+                onClick={() => handleStartTour(false)}
+                className="flex-1 py-3 px-4 rounded-xl bg-brand-green text-black font-bold text-xs hover:bg-brand-blue transition-colors flex items-center justify-center gap-2 shadow-lg shadow-brand-green/20"
+              >
+                <PlayCircle className="w-4 h-4" />
+                <span>Start Guided Tour</span>
+              </button>
+              <button
+                onClick={handleSkipTour}
+                className="py-3 px-4 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 font-bold text-xs border border-white/10 transition-colors"
+              >
+                Skip for Now
+              </button>
+            </div>
           </div>
         </div>
       )}

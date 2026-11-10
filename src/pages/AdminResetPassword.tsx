@@ -18,7 +18,9 @@ import {
   isSupabaseConfigured, 
   updateAdminPassword, 
   sendPasswordResetEmail,
-  AUTHORIZED_ADMIN_UUID 
+  isAuthorizedAdmin,
+  getAdminRoleInfo,
+  AUTHORIZED_ADMIN_UUIDS
 } from '../lib/supabase';
 
 export default function AdminResetPassword() {
@@ -38,7 +40,7 @@ export default function AdminResetPassword() {
   const [errorMessage, setErrorMessage] = useState('');
 
   // Fallback request recovery state if user arrived without valid token
-  const [fallbackEmail, setFallbackEmail] = useState('thembelaandrew@gmail.com');
+  const [fallbackEmail, setFallbackEmail] = useState('');
   const [fallbackLoading, setFallbackLoading] = useState(false);
   const [fallbackSuccess, setFallbackSuccess] = useState('');
   const [fallbackError, setFallbackError] = useState('');
@@ -143,7 +145,8 @@ export default function AdminResetPassword() {
     }
   };
 
-  const isAuthorized = recoveryUser?.id === AUTHORIZED_ADMIN_UUID;
+  const isAuthorized = isAuthorizedAdmin(recoveryUser?.id);
+  const roleInfo = getAdminRoleInfo(recoveryUser?.id);
 
   return (
     <div className="min-h-screen bg-[#080808] text-gray-100 flex flex-col justify-center items-center px-4 py-12 relative overflow-hidden font-sans">
@@ -236,15 +239,19 @@ export default function AdminResetPassword() {
             <form onSubmit={handlePasswordUpdate} className="space-y-4 text-xs">
               
               {/* Account identity verification badge */}
-              <div className="p-3 rounded-xl bg-black/40 border border-white/5 space-y-1.5">
+              <div className="p-3.5 rounded-xl bg-black/40 border border-white/5 space-y-1.5">
                 <div className="flex items-center justify-between text-[11px]">
-                  <span className="text-gray-400">Account Email:</span>
-                  <span className="text-white font-mono font-bold">{recoveryUser?.email || 'thembelaandrew@gmail.com'}</span>
+                  <span className="text-gray-400">Account:</span>
+                  <span className="text-white font-mono font-bold">{recoveryUser?.email || roleInfo.name}</span>
+                </div>
+                <div className="flex items-center justify-between text-[11px]">
+                  <span className="text-gray-400">Role:</span>
+                  <span className="text-brand-green font-semibold">{roleInfo.role}</span>
                 </div>
                 <div className="flex items-center justify-between text-[11px]">
                   <span className="text-gray-400">Administrator UUID:</span>
                   <span className={`font-mono text-[10px] ${isAuthorized ? 'text-brand-green font-bold' : 'text-yellow-400'}`}>
-                    {recoveryUser?.id ? `${recoveryUser.id.slice(0, 12)}...` : AUTHORIZED_ADMIN_UUID.slice(0, 12)}
+                    {recoveryUser?.id ? `${recoveryUser.id.slice(0, 12)}...` : 'Verified Admin'}
                   </span>
                 </div>
                 <div className="pt-1 flex items-center gap-1.5 text-[10px] text-brand-green font-medium">
@@ -354,7 +361,7 @@ export default function AdminResetPassword() {
                     type="email"
                     value={fallbackEmail}
                     onChange={(e) => setFallbackEmail(e.target.value)}
-                    placeholder="thembelaandrew@gmail.com"
+                    placeholder="Enter your administrator email"
                     className="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white text-xs focus:outline-none focus:border-brand-green"
                     required
                   />
@@ -392,7 +399,7 @@ export default function AdminResetPassword() {
             </Link>
 
             <span className="text-[10px] text-gray-500 font-mono">
-              UUID: {AUTHORIZED_ADMIN_UUID.slice(0, 8)}...
+              Authorized Portal
             </span>
           </div>
         </div>
